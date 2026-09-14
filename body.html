@@ -1,0 +1,124 @@
+
+  <div id="login-overlay">
+    <div id="login-card" class="panel">
+      <div class="brand"><i class="fas fa-wave-square" style="color:var(--accent-cyan)"></i> VO <span style="color:var(--accent-violet)">Studio</span></div>
+      <p style="color:var(--muted);margin:.75rem 0 1.25rem" data-i18n="login.title">Sign in to VO Studio</p>
+      <input id="login-email" class="field" type="email" data-i18n-ph="login.emailPh" style="text-align:center">
+      <div id="login-msg" style="color:var(--danger);font-size:.85rem;min-height:1.2rem;margin:.5rem 0"></div>
+      <button id="login-btn" class="btn-primary glow" style="width:100%"><i class="fas fa-right-to-bracket"></i> <span data-i18n="login.btn">Sign In</span></button>
+    </div>
+  </div>
+  <div class="app-shell" id="app-shell" style="display:none">
+    <button id="sidebar-toggle" class="hidden md:hidden" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <aside class="sidebar panel">
+      <div class="brand">
+        <i class="fas fa-wave-square" style="color:var(--accent-cyan)"></i>
+        VO <span style="color:var(--accent-violet)">Studio</span>
+      </div>
+      <nav id="main-nav">
+        <button class="main-tab-btn" data-tab="voiceover"><i class="fas fa-microphone-lines"></i> <span data-i18n="nav.voiceover">Voice Over</span></button>
+        <button class="main-tab-btn" data-tab="dialog"><i class="fas fa-comments"></i> <span data-i18n="nav.dialog">Dialog</span></button>
+        <button class="main-tab-btn" data-tab="longform"><i class="fas fa-align-left"></i> <span data-i18n="nav.longform">Long-form</span></button>
+        <button class="main-tab-btn" data-tab="library"><i class="fas fa-record-vinyl"></i> <span data-i18n="nav.library">Voice Library</span></button>
+        <button class="main-tab-btn" data-tab="history"><i class="fas fa-clock-rotate-left"></i> <span data-i18n="nav.history">History</span></button>
+      </nav>
+      <div style="margin-top:1.5rem;display:flex;gap:.5rem" id="lang-switch">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="id">ID</button>
+        <button class="lang-btn" data-lang="ms">MS</button>
+      </div>
+      <button id="ver-badge" class="chip" style="margin-top:1rem;width:100%;justify-content:center;position:relative">v1.0<span id="ver-dot" style="display:none;position:absolute;top:6px;right:10px;width:8px;height:8px;background:var(--danger);border-radius:50%"></span></button>
+      <button id="logout-btn" class="chip" style="margin-top:.5rem;width:100%;justify-content:center"><i class="fas fa-right-from-bracket"></i> <span data-i18n="login.logout">Sign out</span></button>
+    </aside>
+    <main>
+      <div id="content-voiceover" class="main-content-panel">
+        <div class="vo-grid">
+          <section class="panel col-input" style="padding:1.25rem">
+            <h2 data-i18n="vo.title" style="margin-top:0">Voice Over</h2>
+            <textarea id="vo-text" class="field" rows="6" data-i18n-ph="vo.textPh"></textarea>
+            <div id="vo-counter" style="color:var(--muted);font-size:.8rem;margin-top:.25rem"></div>
+            <label class="lbl" data-i18n="vo.director">Director</label>
+            <input id="vo-director" class="field" data-i18n-ph="vo.directorPh">
+            <div id="vo-presets" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem"></div>
+            <label class="lbl" data-i18n="vo.voice">Voice</label>
+            <select id="vo-voice-select" class="field"></select>
+            <button id="vo-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-play"></i> <span data-i18n="vo.generate">Generate</span></button>
+          </section>
+          <section class="panel" style="padding:1.25rem;min-height:180px">
+            <div id="vo-status" style="color:var(--muted);display:flex;align-items:center;gap:.6rem">
+              <span class="wave" id="vo-wave" style="display:none"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+              <span id="vo-status-text" data-i18n="vo.ready">Ready.</span>
+            </div>
+            <audio id="vo-audio" controls style="width:100%;margin-top:.75rem;display:none"></audio>
+            <div style="display:flex;gap:.5rem;margin-top:.75rem">
+              <button id="vo-download" class="btn-primary hidden" style="flex:1"><i class="fas fa-download"></i> WAV</button>
+              <button id="vo-mp3" class="chip hidden" style="flex:1;justify-content:center">MP3</button>
+              <button id="vo-save" class="chip hidden" style="flex:1;justify-content:center"><i class="fas fa-bookmark"></i> <span data-i18n="vo.save">Save</span></button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div id="content-dialog" class="main-content-panel hidden">
+        <div class="panel" style="padding:1.25rem">
+          <h2 data-i18n="dlg.title" style="margin-top:0">Dialog / Podcast</h2>
+          <p style="color:var(--muted);font-size:.85rem;margin-top:0" data-i18n="dlg.hint">Max 2 speakers per audio.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+            <div>
+              <input id="dlg-name1" class="field" value="Host">
+              <select id="dlg-spk1" class="field" style="margin-top:.4rem"></select>
+            </div>
+            <div>
+              <input id="dlg-name2" class="field" value="Guest">
+              <select id="dlg-spk2" class="field" style="margin-top:.4rem"></select>
+            </div>
+          </div>
+          <textarea id="dlg-script" class="field" rows="7" data-i18n-ph="dlg.scriptPh" style="margin-top:.75rem"></textarea>
+          <button id="dlg-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-comments"></i> <span data-i18n="dlg.generate">Generate</span></button>
+          <div id="dlg-status" style="color:var(--muted);margin-top:.6rem"></div>
+          <audio id="dlg-audio" controls style="width:100%;margin-top:.6rem;display:none"></audio>
+          <div style="display:flex;gap:.5rem;margin-top:.5rem">
+            <button id="dlg-download" class="btn-primary hidden" style="flex:1"><i class="fas fa-download"></i> WAV</button>
+            <button id="dlg-mp3" class="chip hidden" style="flex:1;justify-content:center">MP3</button>
+          </div>
+        </div>
+      </div>
+      <div id="content-longform" class="main-content-panel hidden">
+        <div class="panel" style="padding:1.25rem">
+          <h2 data-i18n="lf.title" style="margin-top:0">Long-form Narration</h2>
+          <select id="lf-voice" class="field"></select>
+          <textarea id="lf-text" class="field" rows="10" data-i18n-ph="lf.textPh" style="margin-top:.6rem"></textarea>
+          <button id="lf-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-align-left"></i> <span data-i18n="lf.generate">Generate</span></button>
+          <div id="lf-progress" style="color:var(--muted);margin-top:.6rem"></div>
+          <audio id="lf-audio" controls style="width:100%;margin-top:.6rem;display:none"></audio>
+          <div style="display:flex;gap:.5rem;margin-top:.5rem">
+            <button id="lf-download" class="btn-primary hidden" style="flex:1"><i class="fas fa-download"></i> WAV</button>
+            <button id="lf-mp3" class="chip hidden" style="flex:1;justify-content:center">MP3</button>
+          </div>
+        </div>
+      </div>
+      <div id="content-library" class="main-content-panel hidden">
+        <div class="panel" style="padding:1.25rem">
+          <h2 data-i18n="lib.title" style="margin-top:0">Voice Library</h2>
+          <div id="lib-filters" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+            <button class="chip active" data-filter="all" data-i18n="lib.all">All</button>
+            <button class="chip" data-filter="F" data-i18n="lib.female">Female</button>
+            <button class="chip" data-filter="M" data-i18n="lib.male">Male</button>
+            <button class="chip" data-filter="fav" data-i18n="lib.fav">Favorites</button>
+          </div>
+          <div id="lib-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.75rem"></div>
+        </div>
+      </div>
+      <div id="content-history" class="main-content-panel hidden">
+        <div class="panel" style="padding:1.25rem">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h2 data-i18n="hist.title" style="margin:0">History</h2>
+            <button id="hist-clear" class="chip"><i class="fas fa-trash"></i> <span data-i18n="hist.clear">Clear</span></button>
+          </div>
+          <div id="hist-list" style="margin-top:1rem;display:grid;gap:.6rem"></div>
+          <div id="hist-empty" data-i18n="hist.empty" style="color:var(--muted);margin-top:1rem">No saved audio yet.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  

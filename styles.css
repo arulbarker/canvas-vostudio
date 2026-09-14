@@ -1,0 +1,67 @@
+
+    /* === DARK STUDIO THEME === */
+    :root{
+      --bg:#0b0e14; --surface:#161b26; --surface-2:#1c2331; --border:#232b3a;
+      --text:#e6edf6; --muted:#8a98ad;
+      --accent-cyan:#22d3ee; --accent-violet:#8b5cf6;
+      --danger:#f43f5e; --ok:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);}
+    h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif;}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;}
+    .btn-primary{background:linear-gradient(135deg,var(--accent-cyan),var(--accent-violet));color:#06121a;font-weight:600;border:none;border-radius:12px;min-height:44px;padding:0 1rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;}
+    .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+    .glow{box-shadow:0 0 24px rgba(34,211,238,.25)}
+    .chip{background:var(--surface-2);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:.4rem .8rem;cursor:pointer;min-height:36px;}
+    .chip.active{color:var(--text);border-color:var(--accent-cyan)}
+    /* utility .hidden harus menang atas display custom */
+    .hidden{display:none !important}
+
+    .app-shell{display:flex;min-height:100vh}
+    .sidebar{width:260px;position:fixed;inset:0 auto 0 0;padding:1rem;overflow-y:auto;z-index:1000;border-radius:0;border-right:1px solid var(--border)}
+    .brand{font-size:1.25rem;font-weight:700;margin-bottom:1.25rem;letter-spacing:.5px}
+    .main-tab-btn{display:flex;align-items:center;gap:.6rem;width:100%;padding:.7rem .8rem;margin-bottom:.35rem;background:transparent;border:1px solid transparent;border-radius:10px;color:var(--muted);font-weight:500;cursor:pointer;text-align:left}
+    .main-tab-btn:hover{background:var(--surface-2);color:var(--text)}
+    .main-tab-btn.active{background:var(--surface-2);color:var(--text);border-color:var(--border);box-shadow:inset 3px 0 0 var(--accent-cyan)}
+    .lang-btn{flex:1;padding:.4rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--muted);cursor:pointer}
+    .lang-btn.active{color:var(--text);border-color:var(--accent-cyan)}
+    main{flex:1;margin-left:260px;padding:1.5rem}
+    .main-content-panel{display:block}
+    .main-content-panel.hidden{display:none}
+    #sidebar-toggle{position:fixed;top:12px;left:12px;z-index:1100;background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:10px;width:44px;height:44px;cursor:pointer}
+    textarea,input,select{font-family:inherit}
+    @media (max-width:768px){
+      .sidebar{transform:translateX(-100%);transition:transform .3s}
+      .sidebar.open{transform:translateX(0)}
+      main{margin-left:0 !important;padding:1rem !important}
+      #sidebar-toggle{display:block !important}
+    }
+
+    /* form controls (dark) */
+    .field{width:100%;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:.65rem .75rem}
+    .field:focus{outline:none;border-color:var(--accent-cyan)}
+    label.lbl{display:block;margin:.75rem 0 .3rem;color:var(--muted);font-size:.85rem;font-weight:500}
+    .vo-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media (min-width:900px){ .vo-grid{grid-template-columns:1fr 1fr;align-items:start} .vo-grid .col-input{position:sticky;top:1rem} }
+
+    /* waveform decoration */
+    .wave{display:flex;align-items:center;gap:3px;height:28px}
+    .wave span{width:3px;background:linear-gradient(var(--accent-cyan),var(--accent-violet));border-radius:2px;height:30%}
+    .wave.animate span{animation:wv 1s ease-in-out infinite}
+    .wave span:nth-child(2){animation-delay:.1s}.wave span:nth-child(3){animation-delay:.2s}
+    .wave span:nth-child(4){animation-delay:.3s}.wave span:nth-child(5){animation-delay:.15s}
+    .wave span:nth-child(6){animation-delay:.25s}.wave span:nth-child(7){animation-delay:.05s}
+    @keyframes wv{0%,100%{height:20%}50%{height:100%}}
+
+    /* modal uiNotify/uiConfirm */
+    .ui-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:2000}
+    .ui-modal-box{max-width:380px;width:90%;padding:1.25rem}
+    .ui-modal-box p{margin:0 0 1rem;color:var(--text);line-height:1.5}
+
+    /* login overlay */
+    #login-overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:3000;padding:1rem}
+    #login-overlay.hidden{display:none}
+    #login-card{max-width:400px;width:100%;padding:2rem;text-align:center}
+    #login-card .brand{font-size:1.6rem;justify-content:center}
+  
