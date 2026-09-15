@@ -32,8 +32,8 @@
     .main-tab-btn i{width:18px;text-align:center;font-size:.95rem}
     .main-tab-btn:hover{background:var(--surface-2);color:var(--text)}
     .main-tab-btn.active{background:var(--pink-soft);color:var(--pink-dark);font-weight:600}
-    .lang-btn{flex:1;padding:.4rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--muted);cursor:pointer;font-size:.8rem;transition:all .12s}
-    .lang-btn.active{color:var(--pink);border-color:var(--pink);background:var(--pink-soft);font-weight:600}
+    .lang-btn,.qual-btn{flex:1;padding:.4rem;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--muted);cursor:pointer;font-size:.8rem;transition:all .12s}
+    .lang-btn.active,.qual-btn.active{color:var(--pink);border-color:var(--pink);background:var(--pink-soft);font-weight:600}
     main{flex:1;margin-left:264px;padding:2rem}
     .main-content-panel{display:block;max-width:1120px}
     .main-content-panel.hidden{display:none}
@@ -74,4 +74,9 @@
     #login-card{max-width:400px;width:100%;padding:2.25rem;text-align:center;box-shadow:var(--shadow-md)}
     #login-card .brand{font-size:1.7rem;justify-content:center}
     audio{filter:saturate(.9)}
+
+    /* dark mode override (pink tetap sama) */
+    html.dark{ --bg:#14121a; --surface:#1c1922; --surface-2:#241f2b; --border:#302a38; --text:#ece9f1; --muted:#9a92a6; --pink-soft:#3a2030; }
+    html.dark .field::placeholder{color:#7d7488}
+    html.dark audio{filter:invert(.92) hue-rotate(180deg) saturate(.8)}
   
