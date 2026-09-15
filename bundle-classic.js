@@ -10,6 +10,7 @@
           'vo.title':'Voice Over','vo.textPh':'Type or paste your script here...','vo.director':'Director (style instruction)','vo.directorPh':'e.g. Read calmly and slowly','vo.voice':'Voice','vo.generate':'Generate','vo.save':'Save','vo.ready':'Ready.','vo.generating':'Generating audio...','vo.errEmpty':'Please enter some text first.',
           'preset.news':'News Anchor','preset.story':'Storyteller','preset.cheerful':'Cheerful','preset.sad':'Sad','preset.calm':'Calm','preset.energetic':'Energetic','preset.asmr':'ASMR','preset.ads':'Hard-Sell Ad','preset.friendly':'Friendly','preset.firm':'Firm',
           'lib.title':'Voice Library','lib.all':'All','lib.female':'Female','lib.male':'Male','lib.fav':'Favorites','lib.preview':'Preview','lib.previewText':'Hello, this is a preview of my voice.',
+          'voice.female':'Female','voice.male':'Male',
           'hist.title':'History','hist.clear':'Clear','hist.empty':'No saved audio yet.','hist.confirmDel':'Delete this item?','hist.confirmClear':'Clear all history?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Hi everyone!\nGuest: Thanks for having me.','dlg.generate':'Generate','dlg.errEmpty':'Please enter a dialog script.','dlg.hint':'Max 2 speakers per audio.',
           'lf.title':'Long-form Narration','lf.textPh':'Paste your long script here. It will be split and stitched into one audio.','lf.generate':'Generate','lf.errEmpty':'Please enter your script.','lf.starting':'Starting...','lf.segment':'Segment','lf.done':'segments merged.',
@@ -23,6 +24,7 @@
           'vo.title':'Voice Over','vo.textPh':'Ketik atau tempel naskahmu di sini...','vo.director':'Director (instruksi gaya)','vo.directorPh':'mis. Baca dengan tenang dan pelan','vo.voice':'Suara','vo.generate':'Buat','vo.save':'Simpan','vo.ready':'Siap.','vo.generating':'Membuat audio...','vo.errEmpty':'Masukkan teks dulu ya.',
           'preset.news':'Pembaca Berita','preset.story':'Pendongeng','preset.cheerful':'Ceria','preset.sad':'Sedih','preset.calm':'Tenang','preset.energetic':'Energik','preset.asmr':'ASMR','preset.ads':'Iklan Hard-Sell','preset.friendly':'Ramah','preset.firm':'Tegas',
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Pria','lib.fav':'Favorit','lib.preview':'Pratinjau','lib.previewText':'Halo, ini contoh suara saya.',
+          'voice.female':'Wanita','voice.male':'Pria',
           'hist.title':'Riwayat','hist.clear':'Bersihkan','hist.empty':'Belum ada audio tersimpan.','hist.confirmDel':'Hapus item ini?','hist.confirmClear':'Bersihkan semua riwayat?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Halo semuanya!\nGuest: Terima kasih sudah mengundang.','dlg.generate':'Buat','dlg.errEmpty':'Masukkan naskah dialog dulu.','dlg.hint':'Maksimal 2 pembicara per audio.',
           'lf.title':'Narasi Naskah Panjang','lf.textPh':'Tempel naskah panjangmu di sini. Otomatis dipecah dan disambung jadi satu audio.','lf.generate':'Buat','lf.errEmpty':'Masukkan naskahmu dulu.','lf.starting':'Memulai...','lf.segment':'Segmen','lf.done':'segmen digabung.',
@@ -36,6 +38,7 @@
           'vo.title':'Voice Over','vo.textPh':'Taip atau tampal skrip anda di sini...','vo.director':'Director (arahan gaya)','vo.directorPh':'cth. Baca dengan tenang dan perlahan','vo.voice':'Suara','vo.generate':'Jana','vo.save':'Simpan','vo.ready':'Sedia.','vo.generating':'Menjana audio...','vo.errEmpty':'Sila masukkan teks dahulu.',
           'preset.news':'Pembaca Berita','preset.story':'Pencerita','preset.cheerful':'Ceria','preset.sad':'Sedih','preset.calm':'Tenang','preset.energetic':'Bertenaga','preset.asmr':'ASMR','preset.ads':'Iklan Hard-Sell','preset.friendly':'Mesra','preset.firm':'Tegas',
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Lelaki','lib.preview':'Pratonton','lib.fav':'Kegemaran','lib.previewText':'Helo, ini contoh suara saya.',
+          'voice.female':'Wanita','voice.male':'Lelaki',
           'hist.title':'Sejarah','hist.clear':'Kosongkan','hist.empty':'Belum ada audio disimpan.','hist.confirmDel':'Padam item ini?','hist.confirmClear':'Kosongkan semua sejarah?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Helo semua!\nGuest: Terima kasih kerana menjemput.','dlg.generate':'Jana','dlg.errEmpty':'Sila masukkan skrip dialog dahulu.','dlg.hint':'Maksimum 2 penutur setiap audio.',
           'lf.title':'Naratif Skrip Panjang','lf.textPh':'Tampal skrip panjang anda di sini. Ia akan dipecah dan dicantum jadi satu audio.','lf.generate':'Jana','lf.errEmpty':'Sila masukkan skrip anda.','lf.starting':'Bermula...','lf.segment':'Segmen','lf.done':'segmen dicantum.',
@@ -55,6 +58,22 @@
       }
       function setLang(l){ LANG=l; localStorage.setItem('vo_lang', l); applyLanguage(); }
       // === end i18n engine ===
+
+      // Label gender berupa TEKS (bukan simbol), ikut bahasa UI
+      function genderLabel(g){ return t(g === 'F' ? 'voice.female' : 'voice.male'); }
+      // Isi <select> daftar suara + pertahankan pilihan; withDesc = sertakan karakter suara
+      function fillVoiceSelect(sel, withDesc){
+        if(!sel) return;
+        var prev = sel.value;
+        sel.innerHTML = '';
+        (window.VOICES || []).forEach(function(v){
+          var o = document.createElement('option');
+          o.value = v.id;
+          o.textContent = v.id + ' (' + genderLabel(v.gender) + (withDesc ? ' · ' + v.desc : '') + ')';
+          sel.appendChild(o);
+        });
+        if(prev) sel.value = prev;
+      }
 
       // === MODAL HELPERS (pengganti alert/confirm yang diblokir sandbox Canvas) ===
       window.uiNotify = function(msg){
@@ -426,7 +445,8 @@
         const counter=document.getElementById('vo-counter');
         let lastBlob=null, lastText='';
 
-        (window.VOICES||[]).forEach(v=>{ const o=document.createElement('option'); o.value=v.id; o.textContent=v.id+' ('+(v.gender==='F'?'♀':'♂')+' · '+v.desc+')'; sel.appendChild(o); });
+        fillVoiceSelect(sel, true);
+        document.addEventListener('vo-lang-changed', ()=>fillVoiceSelect(sel, true));
 
         function renderPresets(){
           presets.innerHTML='';
@@ -481,7 +501,7 @@
               c.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center">'
                 +'<strong>'+v.id+'</strong>'
                 +'<button class="fav-btn" data-id="'+v.id+'" title="favorite" style="background:none;border:none;cursor:pointer"><i class="fa'+(favs.has(v.id)?'s':'r')+' fa-star" style="color:var(--accent-cyan)"></i></button></div>'
-                +'<div style="color:var(--muted);font-size:.8rem;margin:.2rem 0 .6rem">'+(v.gender==='F'?'♀':'♂')+' · '+v.desc+'</div>'
+                +'<div style="color:var(--muted);font-size:.8rem;margin:.2rem 0 .6rem">'+genderLabel(v.gender)+' · '+v.desc+'</div>'
                 +'<button class="prev-btn btn-primary" data-id="'+v.id+'" style="width:100%"><i class="fas fa-play"></i> <span data-i18n="lib.preview">Preview</span></button>';
               grid.appendChild(c);
             });
@@ -533,8 +553,9 @@
         const scr=document.getElementById('dlg-script'), gen=document.getElementById('dlg-generate');
         const audio=document.getElementById('dlg-audio'), dl=document.getElementById('dlg-download'), mp3=document.getElementById('dlg-mp3'), status=document.getElementById('dlg-status');
         let lastBlob=null;
-        (window.VOICES||[]).forEach(v=>{ [s1,s2].forEach(sel=>{ const o=document.createElement('option'); o.value=v.id; o.textContent=v.id+' ('+v.gender+')'; sel.appendChild(o); }); });
+        fillVoiceSelect(s1, false); fillVoiceSelect(s2, false);
         if(window.VOICES && window.VOICES[1]) s2.value=window.VOICES[1].id;
+        document.addEventListener('vo-lang-changed', ()=>{ fillVoiceSelect(s1, false); fillVoiceSelect(s2, false); });
         gen.addEventListener('click', async ()=>{
           const script=scr.value.trim(); if(!script){ window.uiNotify(t('dlg.errEmpty')); return; }
           gen.disabled=true; status.textContent=t('vo.generating'); dl.classList.add('hidden'); mp3.classList.add('hidden'); audio.style.display='none';
@@ -552,7 +573,8 @@
         const gen=document.getElementById('lf-generate'), prog=document.getElementById('lf-progress');
         const audio=document.getElementById('lf-audio'), dl=document.getElementById('lf-download'), mp3=document.getElementById('lf-mp3');
         let lastBlob=null;
-        (window.VOICES||[]).forEach(v=>{ const o=document.createElement('option'); o.value=v.id; o.textContent=v.id+' ('+v.gender+' · '+v.desc+')'; sel.appendChild(o); });
+        fillVoiceSelect(sel, true);
+        document.addEventListener('vo-lang-changed', ()=>fillVoiceSelect(sel, true));
         gen.addEventListener('click', async ()=>{
           const text=txt.value.trim(); if(!text){ window.uiNotify(t('lf.errEmpty')); return; }
           gen.disabled=true; dl.classList.add('hidden'); mp3.classList.add('hidden'); audio.style.display='none'; prog.textContent=t('lf.starting');
