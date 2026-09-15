@@ -17,7 +17,7 @@
           'wn.title':"What's New",
           'login.title':'Sign in to VO Studio','login.emailPh':'Your purchase email','login.btn':'Sign In','login.checking':'Checking...','login.fail':'Email not found or inactive. Use your purchase email.','login.deviceLimit':'Device limit reached for this license.','login.logout':'Sign out',
           'err.canvasOnly':'Voice generation only works inside Google AI Studio Canvas (the API key is injected there). Please run the app in Canvas.','err.generic':'Something went wrong. Please try again.',
-          'tpl.choose':'Script templates...','tpl.intro':'YouTube intro','tpl.iklan':'Advertisement','tpl.narasi':'Narration','tpl.dongeng':'Story','pron.btn':'Pronunciation','pron.title':'Pronunciation Dictionary','pron.hint':'Replace words the AI mispronounces (e.g. a name) with a phonetic spelling. Applies to all tabs.','pron.add':'Add word','pron.from':'Written','pron.to':'Say as','q.fast':'Fast','q.pro':'Pro','theme.toggle':'Dark mode','bgm.label':'Background music (optional)','bgm.vol':'Music volume','bgm.apply':'Mix music','bgm.noFile':'Choose a music file first.','bgm.mixing':'Mixing music...'
+          'tpl.choose':'Script templates...','tpl.intro':'YouTube intro','tpl.iklan':'Advertisement','tpl.narasi':'Narration','tpl.dongeng':'Story','pron.btn':'Pronunciation','pron.title':'Pronunciation Dictionary','pron.hint':'Replace words the AI mispronounces (e.g. a name) with a phonetic spelling. Applies to all tabs.','pron.add':'Add word','pron.from':'Written','pron.to':'Say as','q.fast':'Fast','q.pro':'Pro','theme.toggle':'Dark mode'
         },
         id: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Naskah Panjang','nav.library':'Pustaka Suara','nav.history':'Riwayat',
@@ -32,7 +32,7 @@
           'wn.title':'Yang Baru',
           'login.title':'Masuk ke VO Studio','login.emailPh':'Email pembelianmu','login.btn':'Masuk','login.checking':'Memeriksa...','login.fail':'Email tidak ditemukan atau tidak aktif. Pakai email pembelianmu.','login.deviceLimit':'Batas perangkat lisensi ini tercapai.','login.logout':'Keluar',
           'err.canvasOnly':'Pembuatan suara hanya jalan di dalam Google AI Studio Canvas (API key di-inject di sana). Jalankan app di Canvas ya.','err.generic':'Ada yang salah. Coba lagi.',
-          'tpl.choose':'Template naskah...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Narasi','tpl.dongeng':'Dongeng','pron.btn':'Kamus Pengucapan','pron.title':'Kamus Pengucapan','pron.hint':'Ganti kata yang salah dibaca AI (mis. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah kata','pron.from':'Tertulis','pron.to':'Dibaca','q.fast':'Cepat','q.pro':'Pro','theme.toggle':'Mode gelap','bgm.label':'Musik latar (opsional)','bgm.vol':'Volume musik','bgm.apply':'Gabung musik','bgm.noFile':'Pilih file musik dulu.','bgm.mixing':'Menggabung musik...'
+          'tpl.choose':'Template naskah...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Narasi','tpl.dongeng':'Dongeng','pron.btn':'Kamus Pengucapan','pron.title':'Kamus Pengucapan','pron.hint':'Ganti kata yang salah dibaca AI (mis. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah kata','pron.from':'Tertulis','pron.to':'Dibaca','q.fast':'Cepat','q.pro':'Pro','theme.toggle':'Mode gelap'
         },
         ms: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Skrip Panjang','nav.library':'Pustaka Suara','nav.history':'Sejarah',
@@ -47,7 +47,7 @@
           'wn.title':'Apa Baharu',
           'login.title':'Log masuk ke VO Studio','login.emailPh':'Emel pembelian anda','login.btn':'Log Masuk','login.checking':'Menyemak...','login.fail':'Emel tidak dijumpai atau tidak aktif. Guna emel pembelian anda.','login.deviceLimit':'Had peranti untuk lesen ini telah dicapai.','login.logout':'Log keluar',
           'err.canvasOnly':'Penjanaan suara hanya berfungsi dalam Google AI Studio Canvas (kunci API disuntik di sana). Sila jalankan app dalam Canvas.','err.generic':'Ada yang tidak kena. Cuba lagi.',
-          'tpl.choose':'Templat skrip...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Naratif','tpl.dongeng':'Cerita','pron.btn':'Kamus Sebutan','pron.title':'Kamus Sebutan','pron.hint':'Ganti perkataan yang salah dibaca AI (cth. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah perkataan','pron.from':'Ditulis','pron.to':'Dibaca','q.fast':'Pantas','q.pro':'Pro','theme.toggle':'Mod gelap','bgm.label':'Muzik latar (pilihan)','bgm.vol':'Volum muzik','bgm.apply':'Gabung muzik','bgm.noFile':'Pilih fail muzik dahulu.','bgm.mixing':'Menggabung muzik...'
+          'tpl.choose':'Templat skrip...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Naratif','tpl.dongeng':'Cerita','pron.btn':'Kamus Sebutan','pron.title':'Kamus Sebutan','pron.hint':'Ganti perkataan yang salah dibaca AI (cth. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah perkataan','pron.from':'Ditulis','pron.to':'Dibaca','q.fast':'Pantas','q.pro':'Pro','theme.toggle':'Mod gelap'
         },
       };
       let LANG = localStorage.getItem('vo_lang') || (navigator.language && navigator.language.toLowerCase().startsWith('id') ? 'id' : 'en');
@@ -179,25 +179,6 @@
         for(let i=0;i<samples.length;i+=block){ const chunk=samples.subarray(i,i+block); const mp3=enc.encodeBuffer(chunk); if(mp3.length) out.push(mp3); }
         const end=enc.flush(); if(end.length) out.push(end);
         return new Blob(out,{type:'audio/mpeg'});
-      };
-      // === BGM: mix musik latar di bawah voice (Web Audio) ===
-      function audioBufferToWav16(buf){
-        var ch=buf.getChannelData(0); var pcm=new Int16Array(ch.length);
-        for(var i=0;i<ch.length;i++){ var s=Math.max(-1,Math.min(1,ch[i])); pcm[i]=s<0?s*0x8000:s*0x7FFF; }
-        return pcmToWav(pcm.buffer, buf.sampleRate);
-      }
-      window.mixBgm = async function(voiceBlob, musicFile, vol){
-        var AC=window.AudioContext||window.webkitAudioContext; var ac=new AC();
-        var voiceBuf=await ac.decodeAudioData(await voiceBlob.arrayBuffer());
-        var musicBuf=await ac.decodeAudioData(await musicFile.arrayBuffer());
-        ac.close && ac.close();
-        var rate=voiceBuf.sampleRate, len=voiceBuf.length;
-        var off=new OfflineAudioContext(1, len, rate);
-        var v=off.createBufferSource(); v.buffer=voiceBuf; v.connect(off.destination); v.start(0);
-        var m=off.createBufferSource(); m.buffer=musicBuf; m.loop=true;
-        var g=off.createGain(); g.gain.value=(vol==null?0.25:vol); m.connect(g); g.connect(off.destination); m.start(0);
-        var rendered=await off.startRendering();
-        return audioBufferToWav16(rendered);
       };
       window.downloadBlob = async function(blob, filename){
         if(window.__isIOS && window.__isIOS()){ await window.__iosShareOrSaveBlob(blob, filename); return; }
@@ -578,13 +559,10 @@
         const mp3=document.getElementById('vo-mp3');
         const srt=document.getElementById('vo-srt');
         const save=document.getElementById('vo-save');
-        const bgmFile=document.getElementById('vo-bgm-file');
-        const bgmVol=document.getElementById('vo-bgm-vol');
-        const bgmApply=document.getElementById('vo-bgm-apply');
         const statusText=document.getElementById('vo-status-text');
         const wave=document.getElementById('vo-wave');
         const counter=document.getElementById('vo-counter');
-        let lastBlob=null, lastText='', voiceBlob0=null;
+        let lastBlob=null, lastText='';
 
         fillVoiceSelect(sel, true);
         document.addEventListener('vo-lang-changed', ()=>fillVoiceSelect(sel, true));
@@ -628,12 +606,12 @@
           const spoken=applyPron(main);
           const finalText = dir ? (dir+': '+spoken) : spoken;
           gen.disabled=true; statusText.textContent=t('vo.generating'); wave.style.display='flex'; wave.classList.add('animate');
-          audio.style.display='none'; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); save.classList.add('hidden'); bgmApply.classList.add('hidden');
+          audio.style.display='none'; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); save.classList.add('hidden');
           try{
             const r=await generateSpeech(finalText, sel.value, {model:window.ttsModel()});
-            lastBlob=r.blob; voiceBlob0=r.blob; lastText=main;
+            lastBlob=r.blob; lastText=main;
             audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; statusText.textContent=''; wave.classList.remove('animate'); wave.style.display='none';
-            dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); save.classList.remove('hidden'); bgmApply.classList.remove('hidden');
+            dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); save.classList.remove('hidden');
           }catch(e){ statusText.textContent=friendlyTtsError(e); wave.classList.remove('animate'); wave.style.display='none'; }
           finally{ gen.disabled=false; }
         });
@@ -642,15 +620,6 @@
         mp3.addEventListener('click', async ()=>{ if(lastBlob && window.wavBlobToMp3){ const m=await window.wavBlobToMp3(lastBlob); window.downloadBlob(m,'vo-'+Date.now()+'.mp3'); } });
         srt.addEventListener('click', async ()=>{ if(!lastBlob) return; const dur=await window.wavDurationSec(lastBlob); const s=window.buildSRT(lastText,dur); window.downloadBlob(new Blob([s],{type:'text/plain'}),'vo-'+Date.now()+'.srt'); });
         save.addEventListener('click',()=>{ if(lastBlob && window.VOHistory) window.VOHistory.add({text:lastText, voice:sel.value, blob:lastBlob}); });
-        bgmApply.addEventListener('click', async ()=>{
-          const f=bgmFile.files && bgmFile.files[0];
-          if(!f){ window.uiNotify(t('bgm.noFile')); return; }
-          if(!voiceBlob0) return;
-          bgmApply.disabled=true; statusText.textContent=t('bgm.mixing');
-          try{ const mixed=await window.mixBgm(voiceBlob0, f, parseFloat(bgmVol.value)); lastBlob=mixed; audio.src=URL.createObjectURL(mixed); statusText.textContent=''; }
-          catch(e){ statusText.textContent=friendlyTtsError(e); }
-          finally{ bgmApply.disabled=false; }
-        });
       })();
 
       // === TAB: VOICE LIBRARY ===
