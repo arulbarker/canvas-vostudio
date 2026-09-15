@@ -12,7 +12,7 @@
           'lib.title':'Voice Library','lib.all':'All','lib.female':'Female','lib.male':'Male','lib.fav':'Favorites','lib.preview':'Preview','lib.previewText':'Hello, this is a preview of my voice.',
           'voice.female':'Female','voice.male':'Male',
           'hist.title':'History','hist.clear':'Clear','hist.empty':'No saved audio yet.','hist.confirmDel':'Delete this item?','hist.confirmClear':'Clear all history?',
-          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Hi everyone!\nGuest: Thanks for having me.','dlg.generate':'Generate','dlg.errEmpty':'Please enter a dialog script.','dlg.hint':'Max 2 speakers per audio.',
+          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Hi everyone!\nGuest: Thanks for having me.','dlg.generate':'Generate','dlg.errEmpty':'Please enter a dialog script.','dlg.hint':'Max 2 speakers per audio.','dtpl.choose':'Dialog templates...','dtpl.podcast':'Podcast','dtpl.interview':'Interview','dtpl.review':'Product review','dtpl.casual':'Casual chat',
           'lf.title':'Long-form Narration','lf.textPh':'Paste your long script here. It will be split and stitched into one audio.','lf.generate':'Generate','lf.errEmpty':'Please enter your script.','lf.starting':'Starting...','lf.segment':'Segment','lf.done':'segments merged.',
           'wn.title':"What's New",
           'login.title':'Sign in to VO Studio','login.emailPh':'Your purchase email','login.btn':'Sign In','login.checking':'Checking...','login.fail':'Email not found or inactive. Use your purchase email.','login.deviceLimit':'Device limit reached for this license.','login.logout':'Sign out',
@@ -27,7 +27,7 @@
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Pria','lib.fav':'Favorit','lib.preview':'Pratinjau','lib.previewText':'Halo, ini contoh suara saya.',
           'voice.female':'Wanita','voice.male':'Pria',
           'hist.title':'Riwayat','hist.clear':'Bersihkan','hist.empty':'Belum ada audio tersimpan.','hist.confirmDel':'Hapus item ini?','hist.confirmClear':'Bersihkan semua riwayat?',
-          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Halo semuanya!\nGuest: Terima kasih sudah mengundang.','dlg.generate':'Buat','dlg.errEmpty':'Masukkan naskah dialog dulu.','dlg.hint':'Maksimal 2 pembicara per audio.',
+          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Halo semuanya!\nGuest: Terima kasih sudah mengundang.','dlg.generate':'Buat','dlg.errEmpty':'Masukkan naskah dialog dulu.','dlg.hint':'Maksimal 2 pembicara per audio.','dtpl.choose':'Template dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Wawancara','dtpl.review':'Review produk','dtpl.casual':'Obrolan santai',
           'lf.title':'Narasi Naskah Panjang','lf.textPh':'Tempel naskah panjangmu di sini. Otomatis dipecah dan disambung jadi satu audio.','lf.generate':'Buat','lf.errEmpty':'Masukkan naskahmu dulu.','lf.starting':'Memulai...','lf.segment':'Segmen','lf.done':'segmen digabung.',
           'wn.title':'Yang Baru',
           'login.title':'Masuk ke VO Studio','login.emailPh':'Email pembelianmu','login.btn':'Masuk','login.checking':'Memeriksa...','login.fail':'Email tidak ditemukan atau tidak aktif. Pakai email pembelianmu.','login.deviceLimit':'Batas perangkat lisensi ini tercapai.','login.logout':'Keluar',
@@ -42,7 +42,7 @@
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Lelaki','lib.preview':'Pratonton','lib.fav':'Kegemaran','lib.previewText':'Helo, ini contoh suara saya.',
           'voice.female':'Wanita','voice.male':'Lelaki',
           'hist.title':'Sejarah','hist.clear':'Kosongkan','hist.empty':'Belum ada audio disimpan.','hist.confirmDel':'Padam item ini?','hist.confirmClear':'Kosongkan semua sejarah?',
-          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Helo semua!\nGuest: Terima kasih kerana menjemput.','dlg.generate':'Jana','dlg.errEmpty':'Sila masukkan skrip dialog dahulu.','dlg.hint':'Maksimum 2 penutur setiap audio.',
+          'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Helo semua!\nGuest: Terima kasih kerana menjemput.','dlg.generate':'Jana','dlg.errEmpty':'Sila masukkan skrip dialog dahulu.','dlg.hint':'Maksimum 2 penutur setiap audio.','dtpl.choose':'Templat dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Temu bual','dtpl.review':'Ulasan produk','dtpl.casual':'Sembang santai',
           'lf.title':'Naratif Skrip Panjang','lf.textPh':'Tampal skrip panjang anda di sini. Ia akan dipecah dan dicantum jadi satu audio.','lf.generate':'Jana','lf.errEmpty':'Sila masukkan skrip anda.','lf.starting':'Bermula...','lf.segment':'Segmen','lf.done':'segmen dicantum.',
           'wn.title':'Apa Baharu',
           'login.title':'Log masuk ke VO Studio','login.emailPh':'Emel pembelian anda','login.btn':'Log Masuk','login.checking':'Menyemak...','login.fail':'Emel tidak dijumpai atau tidak aktif. Guna emel pembelian anda.','login.deviceLimit':'Had peranti untuk lesen ini telah dicapai.','login.logout':'Log keluar',
@@ -337,6 +337,34 @@
           en:"Once upon a time, in a land far beyond the mountains, there lived a little girl with a very big dream.",
           id:"Pada suatu masa, di sebuah negeri yang jauh di balik pegunungan, hiduplah seorang gadis kecil dengan mimpi yang sangat besar.",
           ms:"Pada suatu masa dahulu, di sebuah negeri jauh di sebalik gunung, tinggal seorang gadis kecil dengan impian yang sangat besar."}}
+      ];
+
+      // Template dialog (turns; s=1 -> speaker 1, s=2 -> speaker 2)
+      window.DIALOG_TEMPLATES = [
+        {key:'podcast', turns:[
+          {s:1,text:{en:"Welcome back to the show! Today we have a very special guest.",id:"Selamat datang kembali! Hari ini kita kedatangan tamu spesial.",ms:"Selamat kembali! Hari ini kita ada tetamu istimewa."}},
+          {s:2,text:{en:"Thanks for having me, I'm really excited to be here.",id:"Terima kasih sudah mengundang, aku senang sekali bisa di sini.",ms:"Terima kasih menjemput saya, saya sangat teruja berada di sini."}},
+          {s:1,text:{en:"So tell us, how did your journey begin?",id:"Jadi, ceritakan, bagaimana perjalananmu dimulai?",ms:"Jadi, ceritakan, bagaimana perjalanan anda bermula?"}},
+          {s:2,text:{en:"It all started with one simple idea and a lot of hard work.",id:"Semua bermula dari satu ide sederhana dan kerja keras.",ms:"Semuanya bermula dengan satu idea mudah dan kerja keras."}}
+        ]},
+        {key:'interview', turns:[
+          {s:1,text:{en:"Good morning! Can you introduce yourself to our audience?",id:"Selamat pagi! Bisa perkenalkan diri ke pemirsa kami?",ms:"Selamat pagi! Boleh perkenalkan diri kepada penonton kami?"}},
+          {s:2,text:{en:"Of course. My name is Alex and I work as a designer.",id:"Tentu. Nama saya Alex dan saya bekerja sebagai desainer.",ms:"Sudah tentu. Nama saya Alex dan saya bekerja sebagai pereka."}},
+          {s:1,text:{en:"What do you enjoy most about your work?",id:"Apa yang paling kamu sukai dari pekerjaanmu?",ms:"Apa yang paling anda suka tentang kerja anda?"}},
+          {s:2,text:{en:"Seeing an idea come to life makes it all worth it.",id:"Melihat ide menjadi nyata membuat semuanya sepadan.",ms:"Melihat idea menjadi kenyataan menjadikan semuanya berbaloi."}}
+        ]},
+        {key:'review', turns:[
+          {s:1,text:{en:"Have you tried the new product everyone is talking about?",id:"Kamu sudah coba produk baru yang lagi ramai dibahas?",ms:"Anda dah cuba produk baru yang ramai perkatakan?"}},
+          {s:2,text:{en:"Yes! Honestly, the quality surprised me for the price.",id:"Sudah! Jujur, kualitasnya bikin kaget untuk harga segitu.",ms:"Sudah! Jujur, kualitinya buat saya terkejut untuk harga itu."}},
+          {s:1,text:{en:"So would you recommend it to our viewers?",id:"Jadi, kamu rekomendasikan ke pemirsa kita?",ms:"Jadi, anda syorkan kepada penonton kita?"}},
+          {s:2,text:{en:"Absolutely, especially if you want great value.",id:"Sangat, apalagi kalau kamu mau nilai terbaik.",ms:"Sudah tentu, terutama jika anda mahu nilai terbaik."}}
+        ]},
+        {key:'casual', turns:[
+          {s:1,text:{en:"Hey, long time no see! How have you been?",id:"Hei, lama nggak ketemu! Apa kabar?",ms:"Hai, lama tak jumpa! Apa khabar?"}},
+          {s:2,text:{en:"Pretty good, just busy with a new project lately.",id:"Baik, cuma lagi sibuk sama proyek baru akhir-akhir ini.",ms:"Baik, cuma sibuk dengan projek baru kebelakangan ini."}},
+          {s:1,text:{en:"That sounds exciting, tell me more!",id:"Kedengarannya seru, cerita dong!",ms:"Bunyinya menarik, ceritalah lagi!"}},
+          {s:2,text:{en:"Let's grab a coffee and I'll tell you everything.",id:"Yuk ngopi, nanti aku ceritain semuanya.",ms:"Jom minum kopi, nanti saya ceritakan semuanya."}}
+        ]}
       ];
 
       // Kamus pengucapan (perbaiki nama/istilah salah baca) — disimpan per browser
@@ -692,6 +720,15 @@
         fillVoiceSelect(s1, false); fillVoiceSelect(s2, false);
         if(window.VOICES && window.VOICES[1]) s2.value=window.VOICES[1].id;
         document.addEventListener('vo-lang-changed', ()=>{ fillVoiceSelect(s1, false); fillVoiceSelect(s2, false); });
+        const dtpl=document.getElementById('dlg-template');
+        function renderDtpl(){ const cur=dtpl.value; dtpl.innerHTML='<option value="">'+t('dtpl.choose')+'</option>';
+          (window.DIALOG_TEMPLATES||[]).forEach(x=>{ const o=document.createElement('option'); o.value=x.key; o.textContent=t('dtpl.'+x.key); dtpl.appendChild(o); }); dtpl.value=cur; }
+        renderDtpl();
+        document.addEventListener('vo-lang-changed', renderDtpl);
+        dtpl.addEventListener('change',()=>{
+          const x=(window.DIALOG_TEMPLATES||[]).find(s=>s.key===dtpl.value); if(!x) return;
+          scr.value=x.turns.map(tn=>(tn.s===1?(n1.value||'Host'):(n2.value||'Guest'))+': '+(tn.text[LANG]||tn.text.en)).join('\n');
+        });
         gen.addEventListener('click', async ()=>{
           const script=scr.value.trim(); if(!script){ window.uiNotify(t('dlg.errEmpty')); return; }
           gen.disabled=true; status.textContent=t('vo.generating'); dl.classList.add('hidden'); mp3.classList.add('hidden'); audio.style.display='none';
