@@ -44,7 +44,7 @@
     });
   }
   function showError(msg) {
-    document.body.innerHTML = '<div style="padding:24px;color:#e6edf6;background:#0b0e14;font-family:system-ui;min-height:100vh;">'
+    document.body.innerHTML = '<div style="padding:24px;color:#1a1420;background:#ffffff;font-family:system-ui;min-height:100vh;">'
       + '<h2 style="margin:0 0 12px">Boot error</h2><pre style="white-space:pre-wrap;word-break:break-word">' + (msg || 'Unknown') + '</pre>'
       + '<p style="margin-top:16px;opacity:.7">Buka DevTools console untuk detail.</p></div>';
   }
