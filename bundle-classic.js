@@ -17,7 +17,7 @@
           'wn.title':"What's New",
           'login.title':'Sign in to VO Studio','login.emailPh':'Your purchase email','login.btn':'Sign In','login.checking':'Checking...','login.fail':'Email not found or inactive. Use your purchase email.','login.deviceLimit':'Device limit reached for this license.','login.logout':'Sign out',
           'err.canvasOnly':'Voice generation only works inside Google AI Studio Canvas (the API key is injected there). Please run the app in Canvas.','err.generic':'Something went wrong. Please try again.',
-          'tpl.choose':'Script templates...','tpl.intro':'YouTube intro','tpl.iklan':'Advertisement','tpl.narasi':'Narration','tpl.dongeng':'Story','pron.btn':'Pronunciation','pron.title':'Pronunciation Dictionary','pron.hint':'Replace words the AI mispronounces (e.g. a name) with a phonetic spelling. Applies to all tabs.','pron.add':'Add word','pron.from':'Written','pron.to':'Say as','q.fast':'Fast','q.pro':'Pro','theme.toggle':'Dark mode'
+          'tpl.choose':'Script templates...','tpl.intro':'YouTube intro','tpl.iklan':'Advertisement','tpl.narasi':'Narration','tpl.dongeng':'Story','pron.btn':'Pronunciation','pron.title':'Pronunciation Dictionary','pron.hint':'Replace words the AI mispronounces (e.g. a name) with a phonetic spelling. Applies to all tabs.','pron.add':'Add word','pron.from':'Written','pron.to':'Say as','q.fast':'Fast','q.pro':'Pro','theme.toggle':'Dark mode','q.label':'Quality','q.help':'Fast = quicker generation, good enough for most voice overs. Pro = higher quality and more expressive, but slower. Use Pro for final/important results.'
         },
         id: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Naskah Panjang','nav.library':'Pustaka Suara','nav.history':'Riwayat',
@@ -32,7 +32,7 @@
           'wn.title':'Yang Baru',
           'login.title':'Masuk ke VO Studio','login.emailPh':'Email pembelianmu','login.btn':'Masuk','login.checking':'Memeriksa...','login.fail':'Email tidak ditemukan atau tidak aktif. Pakai email pembelianmu.','login.deviceLimit':'Batas perangkat lisensi ini tercapai.','login.logout':'Keluar',
           'err.canvasOnly':'Pembuatan suara hanya jalan di dalam Google AI Studio Canvas (API key di-inject di sana). Jalankan app di Canvas ya.','err.generic':'Ada yang salah. Coba lagi.',
-          'tpl.choose':'Template naskah...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Narasi','tpl.dongeng':'Dongeng','pron.btn':'Kamus Pengucapan','pron.title':'Kamus Pengucapan','pron.hint':'Ganti kata yang salah dibaca AI (mis. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah kata','pron.from':'Tertulis','pron.to':'Dibaca','q.fast':'Cepat','q.pro':'Pro','theme.toggle':'Mode gelap'
+          'tpl.choose':'Template naskah...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Narasi','tpl.dongeng':'Dongeng','pron.btn':'Kamus Pengucapan','pron.title':'Kamus Pengucapan','pron.hint':'Ganti kata yang salah dibaca AI (mis. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah kata','pron.from':'Tertulis','pron.to':'Dibaca','q.fast':'Cepat','q.pro':'Pro','theme.toggle':'Mode gelap','q.label':'Kualitas','q.help':'Cepat = generate lebih cepat, cukup untuk kebanyakan voice over. Pro = kualitas lebih tinggi & lebih ekspresif, tapi lebih lambat. Pakai Pro untuk hasil final/penting.'
         },
         ms: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Skrip Panjang','nav.library':'Pustaka Suara','nav.history':'Sejarah',
@@ -47,7 +47,7 @@
           'wn.title':'Apa Baharu',
           'login.title':'Log masuk ke VO Studio','login.emailPh':'Emel pembelian anda','login.btn':'Log Masuk','login.checking':'Menyemak...','login.fail':'Emel tidak dijumpai atau tidak aktif. Guna emel pembelian anda.','login.deviceLimit':'Had peranti untuk lesen ini telah dicapai.','login.logout':'Log keluar',
           'err.canvasOnly':'Penjanaan suara hanya berfungsi dalam Google AI Studio Canvas (kunci API disuntik di sana). Sila jalankan app dalam Canvas.','err.generic':'Ada yang tidak kena. Cuba lagi.',
-          'tpl.choose':'Templat skrip...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Naratif','tpl.dongeng':'Cerita','pron.btn':'Kamus Sebutan','pron.title':'Kamus Sebutan','pron.hint':'Ganti perkataan yang salah dibaca AI (cth. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah perkataan','pron.from':'Ditulis','pron.to':'Dibaca','q.fast':'Pantas','q.pro':'Pro','theme.toggle':'Mod gelap'
+          'tpl.choose':'Templat skrip...','tpl.intro':'Intro YouTube','tpl.iklan':'Iklan','tpl.narasi':'Naratif','tpl.dongeng':'Cerita','pron.btn':'Kamus Sebutan','pron.title':'Kamus Sebutan','pron.hint':'Ganti perkataan yang salah dibaca AI (cth. nama) dengan ejaan fonetik. Berlaku di semua tab.','pron.add':'Tambah perkataan','pron.from':'Ditulis','pron.to':'Dibaca','q.fast':'Pantas','q.pro':'Pro','theme.toggle':'Mod gelap','q.label':'Kualiti','q.help':'Pantas = penjanaan lebih cepat, cukup untuk kebanyakan voice over. Pro = kualiti lebih tinggi & lebih ekspresif, tetapi lebih perlahan. Guna Pro untuk hasil akhir/penting.'
         },
       };
       let LANG = localStorage.getItem('vo_lang') || (navigator.language && navigator.language.toLowerCase().startsWith('id') ? 'id' : 'en');
@@ -491,6 +491,8 @@
         function syncQual(){ const m=localStorage.getItem('vo_model')||'flash'; quals.forEach(b=>b.classList.toggle('active', b.dataset.model===m)); }
         quals.forEach(b=>b.addEventListener('click',()=>{ localStorage.setItem('vo_model', b.dataset.model); syncQual(); }));
         syncQual();
+        const qHelp=document.getElementById('q-help');
+        qHelp && qHelp.addEventListener('click',()=>window.uiNotify(t('q.help')));
         // dark mode
         const tgl=document.getElementById('theme-toggle');
         function applyTheme(){ const dark=localStorage.getItem('vo_theme')==='dark'; document.documentElement.classList.toggle('dark', dark);

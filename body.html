@@ -27,7 +27,11 @@
         <button class="lang-btn" data-lang="id">ID</button>
         <button class="lang-btn" data-lang="ms">MS</button>
       </div>
-      <div style="margin-top:.5rem;display:flex;gap:.5rem" id="quality-switch">
+      <div style="margin-top:.75rem;display:flex;align-items:center;gap:.4rem">
+        <span style="color:var(--muted);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em" data-i18n="q.label">Quality</span>
+        <button id="q-help" aria-label="?" style="width:16px;height:16px;border-radius:50%;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:.7rem;line-height:1;padding:0;cursor:pointer">?</button>
+      </div>
+      <div style="margin-top:.35rem;display:flex;gap:.5rem" id="quality-switch">
         <button class="qual-btn" data-model="flash" data-i18n="q.fast">Fast</button>
         <button class="qual-btn" data-model="pro" data-i18n="q.pro">Pro</button>
       </div>
