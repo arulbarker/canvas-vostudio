@@ -14,6 +14,7 @@
           'hist.title':'History','hist.clear':'Clear','hist.empty':'No saved audio yet.','hist.confirmDel':'Delete this item?','hist.confirmClear':'Clear all history?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Hi everyone!\nGuest: Thanks for having me.','dlg.generate':'Generate','dlg.errEmpty':'Please enter a dialog script.','dlg.hint':'Max 2 speakers per audio.','dtpl.choose':'Dialog templates...','dtpl.podcast':'Podcast','dtpl.interview':'Interview','dtpl.review':'Product review','dtpl.casual':'Casual chat',
           'lf.title':'Long-form Narration','lf.textPh':'Paste your long script here. It will be split and stitched into one audio.','lf.generate':'Generate','lf.errEmpty':'Please enter your script.','lf.starting':'Starting...','lf.segment':'Segment','lf.done':'segments merged.',
+          'lang.vo':'VO Language','lang.auto':'Auto (match text)','lang.translate':'Translate','lang.undo':'Restore original','lang.translating':'Translating...','lang.empty':'Enter some text first.','lang.pickFirst':'Choose a target language first.',
           'wn.title':"What's New",
           'login.title':'Sign in to VO Studio','login.emailPh':'Your purchase email','login.btn':'Sign In','login.checking':'Checking...','login.fail':'Email not found or inactive. Use your purchase email.','login.deviceLimit':'Device limit reached for this license.','login.logout':'Sign out',
           'err.canvasOnly':'Voice generation only works inside Google AI Studio Canvas (the API key is injected there). Please run the app in Canvas.','err.generic':'Something went wrong. Please try again.',
@@ -29,6 +30,7 @@
           'hist.title':'Riwayat','hist.clear':'Bersihkan','hist.empty':'Belum ada audio tersimpan.','hist.confirmDel':'Hapus item ini?','hist.confirmClear':'Bersihkan semua riwayat?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Halo semuanya!\nGuest: Terima kasih sudah mengundang.','dlg.generate':'Buat','dlg.errEmpty':'Masukkan naskah dialog dulu.','dlg.hint':'Maksimal 2 pembicara per audio.','dtpl.choose':'Template dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Wawancara','dtpl.review':'Review produk','dtpl.casual':'Obrolan santai',
           'lf.title':'Narasi Naskah Panjang','lf.textPh':'Tempel naskah panjangmu di sini. Otomatis dipecah dan disambung jadi satu audio.','lf.generate':'Buat','lf.errEmpty':'Masukkan naskahmu dulu.','lf.starting':'Memulai...','lf.segment':'Segmen','lf.done':'segmen digabung.',
+          'lang.vo':'Bahasa VO','lang.auto':'Otomatis (sesuai teks)','lang.translate':'Terjemahkan','lang.undo':'Pulihkan asli','lang.translating':'Menerjemahkan...','lang.empty':'Isi teks dulu.','lang.pickFirst':'Pilih bahasa target dulu.',
           'wn.title':'Yang Baru',
           'login.title':'Masuk ke VO Studio','login.emailPh':'Email pembelianmu','login.btn':'Masuk','login.checking':'Memeriksa...','login.fail':'Email tidak ditemukan atau tidak aktif. Pakai email pembelianmu.','login.deviceLimit':'Batas perangkat lisensi ini tercapai.','login.logout':'Keluar',
           'err.canvasOnly':'Pembuatan suara hanya jalan di dalam Google AI Studio Canvas (API key di-inject di sana). Jalankan app di Canvas ya.','err.generic':'Ada yang salah. Coba lagi.',
@@ -44,6 +46,7 @@
           'hist.title':'Sejarah','hist.clear':'Kosongkan','hist.empty':'Belum ada audio disimpan.','hist.confirmDel':'Padam item ini?','hist.confirmClear':'Kosongkan semua sejarah?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Helo semua!\nGuest: Terima kasih kerana menjemput.','dlg.generate':'Jana','dlg.errEmpty':'Sila masukkan skrip dialog dahulu.','dlg.hint':'Maksimum 2 penutur setiap audio.','dtpl.choose':'Templat dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Temu bual','dtpl.review':'Ulasan produk','dtpl.casual':'Sembang santai',
           'lf.title':'Naratif Skrip Panjang','lf.textPh':'Tampal skrip panjang anda di sini. Ia akan dipecah dan dicantum jadi satu audio.','lf.generate':'Jana','lf.errEmpty':'Sila masukkan skrip anda.','lf.starting':'Bermula...','lf.segment':'Segmen','lf.done':'segmen dicantum.',
+          'lang.vo':'Bahasa VO','lang.auto':'Automatik (ikut teks)','lang.translate':'Terjemah','lang.undo':'Pulihkan asal','lang.translating':'Menterjemah...','lang.empty':'Isi teks dahulu.','lang.pickFirst':'Pilih bahasa sasaran dahulu.',
           'wn.title':'Apa Baharu',
           'login.title':'Log masuk ke VO Studio','login.emailPh':'Emel pembelian anda','login.btn':'Log Masuk','login.checking':'Menyemak...','login.fail':'Emel tidak dijumpai atau tidak aktif. Guna emel pembelian anda.','login.deviceLimit':'Had peranti untuk lesen ini telah dicapai.','login.logout':'Log keluar',
           'err.canvasOnly':'Penjanaan suara hanya berfungsi dalam Google AI Studio Canvas (kunci API disuntik di sana). Sila jalankan app dalam Canvas.','err.generic':'Ada yang tidak kena. Cuba lagi.',
@@ -76,6 +79,41 @@
           sel.appendChild(o);
         });
         if(prev) sel.value = prev;
+      }
+
+      // Isi <select> daftar bahasa output; opsi pertama = Otomatis (auto-detect / tanpa terjemah)
+      function fillLangSelect(sel){
+        if(!sel) return;
+        var prev = sel.value;
+        sel.innerHTML = '<option value="">' + t('lang.auto') + '</option>';
+        (window.TTS_LANGS || []).forEach(function(l){
+          var o = document.createElement('option'); o.value = l.code; o.textContent = l.label; sel.appendChild(o);
+        });
+        if(prev) sel.value = prev;
+      }
+      // Pasang tombol Terjemahkan + Pulihkan asli. o={textEl, langSel, btn, undoBtn, setStatus}
+      function wireTranslate(o){
+        var original = null;
+        o.btn.addEventListener('click', async function(){
+          var code = o.langSel.value;
+          if(!code){ window.uiNotify(t('lang.pickFirst')); return; }
+          var src = o.textEl.value.trim();
+          if(!src){ window.uiNotify(t('lang.empty')); return; }
+          var lang = (window.TTS_LANGS || []).find(function(l){ return l.code===code; });
+          o.btn.disabled = true;
+          if(o.setStatus) o.setStatus(t('lang.translating'));
+          try{
+            var out = await translateText(src, lang ? lang.label : code);
+            original = o.textEl.value;
+            o.textEl.value = out; o.textEl.dispatchEvent(new Event('input'));
+            o.undoBtn.classList.remove('hidden');
+            if(o.setStatus) o.setStatus('');
+          }catch(e){ if(o.setStatus) o.setStatus(friendlyTtsError(e)); else window.uiNotify(friendlyTtsError(e)); }
+          finally{ o.btn.disabled = false; }
+        });
+        o.undoBtn.addEventListener('click', function(){
+          if(original != null){ o.textEl.value = original; o.textEl.dispatchEvent(new Event('input')); original = null; o.undoBtn.classList.add('hidden'); }
+        });
       }
 
       // === MODAL HELPERS (pengganti alert/confirm yang diblokir sandbox Canvas) ===
@@ -205,7 +243,10 @@
           contents: [{ parts: [{ text }] }],
           generationConfig: {
             responseModalities: ["AUDIO"],
-            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voiceId } } }
+            speechConfig: Object.assign(
+              { voiceConfig: { prebuiltVoiceConfig: { voiceName: voiceId } } },
+              opts.languageCode ? { languageCode: opts.languageCode } : {}
+            )
           }
         };
         const resp = await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
@@ -236,10 +277,10 @@
         if(cur) chunks.push(cur);
         return chunks;
       }
-      async function generatePcm(text, voiceId, model){
+      async function generatePcm(text, voiceId, model, languageCode){
         const apiKey="";
         const apiUrl='https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+apiKey;
-        const payload={contents:[{parts:[{text}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voiceId}}}}};
+        const payload={contents:[{parts:[{text}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:Object.assign({voiceConfig:{prebuiltVoiceConfig:{voiceName:voiceId}}}, languageCode?{languageCode:languageCode}:{})}};
         const resp=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
         if(!resp.ok) throw new Error('API '+resp.status);
         const r=await resp.json(); const part=r&&r.candidates&&r.candidates[0]&&r.candidates[0].content&&r.candidates[0].content.parts&&r.candidates[0].content.parts[0];
@@ -256,7 +297,7 @@
         for(let i=0;i<chunks.length;i++){
           let ok=false, attempt=0;
           while(!ok && attempt<3){ attempt++;
-            try{ const r=await generatePcm(chunks[i], voiceId, model); pcmParts[i]=r.pcm; rate=r.rate; ok=true; }
+            try{ const r=await generatePcm(chunks[i], voiceId, model, opts.languageCode); pcmParts[i]=r.pcm; rate=r.rate; ok=true; }
             catch(e){ if(attempt>=3) throw new Error('Segment '+(i+1)+': '+e.message); await new Promise(r=>setTimeout(r,1000*attempt)); }
           }
           if(onProgress) onProgress(i+1, chunks.length);
@@ -277,8 +318,11 @@
         const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + apiKey;
         const payload = { contents:[{parts:[{text:script}]}],
           generationConfig:{ responseModalities:["AUDIO"],
-            speechConfig:{ multiSpeakerVoiceConfig:{ speakerVoiceConfigs: spk.map(s=>({
-              speaker:s.name, voiceConfig:{ prebuiltVoiceConfig:{ voiceName:s.voice } } })) } } } };
+            speechConfig: Object.assign(
+              { multiSpeakerVoiceConfig:{ speakerVoiceConfigs: spk.map(s=>({
+                speaker:s.name, voiceConfig:{ prebuiltVoiceConfig:{ voiceName:s.voice } } })) } },
+              opts.languageCode ? { languageCode: opts.languageCode } : {}
+            ) } };
         const resp=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
         if(!resp.ok){ if(resp.status===429&&retries>0){ await new Promise(r=>setTimeout(r,delay)); return generateDialog(script,speakers,{model,retries:retries-1,delay:delay*2}); }
           const e=await resp.json().catch(()=>({})); throw new Error('API '+resp.status+': '+((e&&e.error&&e.error.message)||'error')); }
@@ -288,6 +332,73 @@
         return { blob: pcmToWav(base64ToArrayBuffer(part.inlineData.data), rate), rate };
       }
 
+      async function translateText(text, targetLangLabel, opts){
+        opts = opts || {};
+        const model = opts.model || 'gemini-2.5-flash';
+        let retries = opts.retries==null ? 3 : opts.retries;
+        let delay = opts.delay || 1000;
+        const apiKey = "";
+        const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + apiKey;
+        const prompt = 'Translate the text below into ' + targetLangLabel + '. '
+          + 'Preserve line breaks exactly. If a line starts with a speaker label like "Name:", keep the label unchanged and translate only the spoken text after it. '
+          + 'Output ONLY the translation, with no notes, comments, or quotation marks.\n\n' + text;
+        const payload = { contents:[{ parts:[{ text: prompt }] }] };
+        const resp = await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        if(!resp.ok){
+          if(resp.status===429 && retries>0){ await new Promise(r=>setTimeout(r,delay)); return translateText(text,targetLangLabel,{model,retries:retries-1,delay:delay*2}); }
+          const e=await resp.json().catch(()=>({})); throw new Error('API '+resp.status+': '+((e&&e.error&&e.error.message)||'error'));
+        }
+        const r=await resp.json();
+        const part=r && r.candidates && r.candidates[0] && r.candidates[0].content && r.candidates[0].content.parts && r.candidates[0].content.parts[0];
+        const out = part && part.text;
+        if(!out) throw new Error('No translation');
+        return out.trim();
+      }
+
+      // === BAHASA OUTPUT TTS (didukung Gemini TTS) ===
+      // Sumber: ai.google.dev/gemini-api/docs/speech-generation (diverifikasi 2026-09-15).
+      // code = kode bahasa resmi (dipakai untuk languageCode); label = nama untuk dropdown. Urut alfabet.
+      // Auto-detect tetap jadi default (opsi kosong di UI).
+      window.TTS_LANGS = [
+        {code:'af',label:'Afrikaans'},{code:'sq',label:'Shqip (Albanian)'},
+        {code:'am',label:'አማርኛ (Amharic)'},{code:'ar',label:'العربية (Arabic)'},
+        {code:'hy',label:'Հայերեն (Armenian)'},{code:'az',label:'Azərbaycan (Azerbaijani)'},
+        {code:'eu',label:'Euskara (Basque)'},{code:'be',label:'Беларуская (Belarusian)'},
+        {code:'bn',label:'বাংলা (Bengali)'},{code:'bg',label:'Български (Bulgarian)'},
+        {code:'ca',label:'Català (Catalan)'},{code:'ceb',label:'Cebuano'},
+        {code:'cmn',label:'中文 (Mandarin)'},{code:'hr',label:'Hrvatski (Croatian)'},
+        {code:'cs',label:'Čeština (Czech)'},{code:'da',label:'Dansk (Danish)'},
+        {code:'nl',label:'Nederlands (Dutch)'},{code:'en',label:'English'},
+        {code:'et',label:'Eesti (Estonian)'},{code:'fil',label:'Filipino'},
+        {code:'fi',label:'Suomi (Finnish)'},{code:'fr',label:'Français (French)'},
+        {code:'gl',label:'Galego (Galician)'},{code:'ka',label:'ქართული (Georgian)'},
+        {code:'de',label:'Deutsch (German)'},{code:'el',label:'Ελληνικά (Greek)'},
+        {code:'gu',label:'ગુજરાતી (Gujarati)'},{code:'ht',label:'Kreyòl Ayisyen (Haitian Creole)'},
+        {code:'he',label:'עברית (Hebrew)'},{code:'hi',label:'हिन्दी (Hindi)'},
+        {code:'hu',label:'Magyar (Hungarian)'},{code:'is',label:'Íslenska (Icelandic)'},
+        {code:'id',label:'Bahasa Indonesia'},{code:'it',label:'Italiano (Italian)'},
+        {code:'ja',label:'日本語 (Japanese)'},{code:'jv',label:'Basa Jawa (Javanese)'},
+        {code:'kn',label:'ಕನ್ನಡ (Kannada)'},{code:'kok',label:'कोंकणी (Konkani)'},
+        {code:'ko',label:'한국어 (Korean)'},{code:'la',label:'Latina (Latin)'},
+        {code:'lv',label:'Latviešu (Latvian)'},{code:'lt',label:'Lietuvių (Lithuanian)'},
+        {code:'lb',label:'Lëtzebuergesch (Luxembourgish)'},{code:'mk',label:'Македонски (Macedonian)'},
+        {code:'mai',label:'मैथिली (Maithili)'},{code:'mg',label:'Malagasy'},
+        {code:'ms',label:'Bahasa Melayu (Malay)'},{code:'ml',label:'മലയാളം (Malayalam)'},
+        {code:'mr',label:'मराठी (Marathi)'},{code:'mn',label:'Монгол (Mongolian)'},
+        {code:'ne',label:'नेपाली (Nepali)'},{code:'nb',label:'Norsk Bokmål (Norwegian)'},
+        {code:'nn',label:'Norsk Nynorsk (Norwegian)'},{code:'or',label:'ଓଡ଼ିଆ (Odia)'},
+        {code:'ps',label:'پښتو (Pashto)'},{code:'fa',label:'فارسی (Persian)'},
+        {code:'pl',label:'Polski (Polish)'},{code:'pt',label:'Português (Portuguese)'},
+        {code:'pa',label:'ਪੰਜਾਬੀ (Punjabi)'},{code:'ro',label:'Română (Romanian)'},
+        {code:'ru',label:'Русский (Russian)'},{code:'sr',label:'Српски (Serbian)'},
+        {code:'sd',label:'سنڌي (Sindhi)'},{code:'si',label:'සිංහල (Sinhala)'},
+        {code:'sk',label:'Slovenčina (Slovak)'},{code:'sl',label:'Slovenščina (Slovenian)'},
+        {code:'es',label:'Español (Spanish)'},{code:'sw',label:'Kiswahili (Swahili)'},
+        {code:'sv',label:'Svenska (Swedish)'},{code:'ta',label:'தமிழ் (Tamil)'},
+        {code:'te',label:'తెలుగు (Telugu)'},{code:'th',label:'ไทย (Thai)'},
+        {code:'tr',label:'Türkçe (Turkish)'},{code:'uk',label:'Українська (Ukrainian)'},
+        {code:'ur',label:'اردو (Urdu)'},{code:'vi',label:'Tiếng Việt (Vietnamese)'}
+      ];
       // === VOICE DATA (30 suara Gemini) ===
       window.VOICES = [
         {id:'Zephyr',gender:'F',desc:'bright'},{id:'Puck',gender:'M',desc:'upbeat'},
@@ -592,7 +703,12 @@
         const statusText=document.getElementById('vo-status-text');
         const wave=document.getElementById('vo-wave');
         const counter=document.getElementById('vo-counter');
+        const langSel=document.getElementById('vo-lang');
         let lastBlob=null, lastText='';
+
+        fillLangSelect(langSel);
+        document.addEventListener('vo-lang-changed', ()=>fillLangSelect(langSel));
+        wireTranslate({ textEl:text, langSel, btn:document.getElementById('vo-translate'), undoBtn:document.getElementById('vo-undo'), setStatus:(m)=>{ statusText.textContent=m; } });
 
         fillVoiceSelect(sel, true);
         document.addEventListener('vo-lang-changed', ()=>fillVoiceSelect(sel, true));
@@ -638,7 +754,7 @@
           gen.disabled=true; statusText.textContent=t('vo.generating'); wave.style.display='flex'; wave.classList.add('animate');
           audio.style.display='none'; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); save.classList.add('hidden');
           try{
-            const r=await generateSpeech(finalText, sel.value, {model:window.ttsModel()});
+            const r=await generateSpeech(finalText, sel.value, {model:window.ttsModel(), languageCode: langSel.value || undefined});
             lastBlob=r.blob; lastText=main;
             audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; statusText.textContent=''; wave.classList.remove('animate'); wave.style.display='none';
             dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); save.classList.remove('hidden');
@@ -719,9 +835,13 @@
         const scr=document.getElementById('dlg-script'), gen=document.getElementById('dlg-generate');
         const audio=document.getElementById('dlg-audio'), dl=document.getElementById('dlg-download'), mp3=document.getElementById('dlg-mp3'), status=document.getElementById('dlg-status');
         let lastBlob=null;
+        const langSel=document.getElementById('dlg-lang');
         fillVoiceSelect(s1, false); fillVoiceSelect(s2, false);
         if(window.VOICES && window.VOICES[1]) s2.value=window.VOICES[1].id;
         document.addEventListener('vo-lang-changed', ()=>{ fillVoiceSelect(s1, false); fillVoiceSelect(s2, false); });
+        fillLangSelect(langSel);
+        document.addEventListener('vo-lang-changed', ()=>fillLangSelect(langSel));
+        wireTranslate({ textEl:scr, langSel, btn:document.getElementById('dlg-translate'), undoBtn:document.getElementById('dlg-undo'), setStatus:(m)=>{ status.textContent=m; } });
         const dtpl=document.getElementById('dlg-template');
         function renderDtpl(){ const cur=dtpl.value; dtpl.innerHTML='<option value="">'+t('dtpl.choose')+'</option>';
           (window.DIALOG_TEMPLATES||[]).forEach(x=>{ const o=document.createElement('option'); o.value=x.key; o.textContent=t('dtpl.'+x.key); dtpl.appendChild(o); }); dtpl.value=cur; }
@@ -734,7 +854,7 @@
         gen.addEventListener('click', async ()=>{
           const script=scr.value.trim(); if(!script){ window.uiNotify(t('dlg.errEmpty')); return; }
           gen.disabled=true; status.textContent=t('vo.generating'); dl.classList.add('hidden'); mp3.classList.add('hidden'); audio.style.display='none';
-          try{ const r=await generateDialog(applyPron(script), [{name:n1.value||'Host',voice:s1.value},{name:n2.value||'Guest',voice:s2.value}], {model:window.ttsModel()});
+          try{ const r=await generateDialog(applyPron(script), [{name:n1.value||'Host',voice:s1.value},{name:n2.value||'Guest',voice:s2.value}], {model:window.ttsModel(), languageCode: langSel.value || undefined});
             lastBlob=r.blob; audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; status.textContent=''; dl.classList.remove('hidden'); mp3.classList.remove('hidden'); }
           catch(e){ status.textContent=friendlyTtsError(e); } finally{ gen.disabled=false; }
         });
@@ -748,12 +868,16 @@
         const gen=document.getElementById('lf-generate'), prog=document.getElementById('lf-progress');
         const audio=document.getElementById('lf-audio'), dl=document.getElementById('lf-download'), mp3=document.getElementById('lf-mp3'), srt=document.getElementById('lf-srt');
         let lastBlob=null, lastText='';
+        const langSel=document.getElementById('lf-lang');
         fillVoiceSelect(sel, true);
         document.addEventListener('vo-lang-changed', ()=>fillVoiceSelect(sel, true));
+        fillLangSelect(langSel);
+        document.addEventListener('vo-lang-changed', ()=>fillLangSelect(langSel));
+        wireTranslate({ textEl:txt, langSel, btn:document.getElementById('lf-translate'), undoBtn:document.getElementById('lf-undo'), setStatus:(m)=>{ prog.textContent=m; } });
         gen.addEventListener('click', async ()=>{
           const text=txt.value.trim(); if(!text){ window.uiNotify(t('lf.errEmpty')); return; }
           gen.disabled=true; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); audio.style.display='none'; prog.textContent=t('lf.starting');
-          try{ lastText=text; const r=await generateLongform(applyPron(text), sel.value, {model:window.ttsModel(), onProgress:(d,tt)=>{ prog.textContent=t('lf.segment')+' '+d+'/'+tt; }});
+          try{ lastText=text; const r=await generateLongform(applyPron(text), sel.value, {model:window.ttsModel(), languageCode: langSel.value || undefined, onProgress:(d,tt)=>{ prog.textContent=t('lf.segment')+' '+d+'/'+tt; }});
             lastBlob=r.blob; audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; prog.textContent=r.segments+' '+t('lf.done'); dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); }
           catch(e){ prog.textContent=friendlyTtsError(e); } finally{ gen.disabled=false; }
         });

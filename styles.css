@@ -1,7 +1,7 @@
 
     /* === BRAND: WHITE + PINK (light, profesional) === */
     :root{
-      --bg:#f7f6f8; --surface:#ffffff; --surface-2:#f5f4f7; --border:#eceaf0;
+      --bg:#f7f6f8; --surface:#ffffff; --surface-2:#f5f4f7; --border:#b9b3c4;
       --text:#1a1420; --muted:#78717f;
       --pink:#e5327f; --pink-dark:#c81e6a; --pink-soft:#fdeaf3; --pink-ring:rgba(229,50,127,.18);
       --danger:#e11d48; --ok:#16a34a;

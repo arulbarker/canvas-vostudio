@@ -45,6 +45,11 @@
           <section class="panel col-input" style="padding:1.25rem">
             <h2 data-i18n="vo.title" style="margin-top:0">Voice Over</h2>
             <select id="vo-template" class="field" style="margin-bottom:.6rem"><option value="" data-i18n="tpl.choose">Script templates...</option></select>
+            <div style="display:flex;gap:.5rem;margin-bottom:.6rem;align-items:center;flex-wrap:wrap">
+              <select id="vo-lang" class="field" style="flex:1;margin:0"></select>
+              <button id="vo-translate" type="button" class="chip"><i class="fas fa-language"></i> <span data-i18n="lang.translate">Translate</span></button>
+              <button id="vo-undo" type="button" class="chip hidden"><i class="fas fa-rotate-left"></i> <span data-i18n="lang.undo">Restore original</span></button>
+            </div>
             <textarea id="vo-text" class="field" rows="6" data-i18n-ph="vo.textPh"></textarea>
             <div id="vo-counter" style="color:var(--muted);font-size:.8rem;margin-top:.25rem"></div>
             <label class="lbl" data-i18n="vo.director">Director</label>
@@ -85,6 +90,11 @@
             </div>
           </div>
           <select id="dlg-template" class="field" style="margin-top:.75rem"><option value="" data-i18n="dtpl.choose">Dialog templates...</option></select>
+          <div style="display:flex;gap:.5rem;margin-top:.6rem;align-items:center;flex-wrap:wrap">
+            <select id="dlg-lang" class="field" style="flex:1;margin:0"></select>
+            <button id="dlg-translate" type="button" class="chip"><i class="fas fa-language"></i> <span data-i18n="lang.translate">Translate</span></button>
+            <button id="dlg-undo" type="button" class="chip hidden"><i class="fas fa-rotate-left"></i> <span data-i18n="lang.undo">Restore original</span></button>
+          </div>
           <textarea id="dlg-script" class="field" rows="7" data-i18n-ph="dlg.scriptPh" style="margin-top:.6rem"></textarea>
           <button id="dlg-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-comments"></i> <span data-i18n="dlg.generate">Generate</span></button>
           <div id="dlg-status" style="color:var(--muted);margin-top:.6rem"></div>
@@ -99,6 +109,11 @@
         <div class="panel" style="padding:1.25rem">
           <h2 data-i18n="lf.title" style="margin-top:0">Long-form Narration</h2>
           <select id="lf-voice" class="field"></select>
+          <div style="display:flex;gap:.5rem;margin-top:.6rem;align-items:center;flex-wrap:wrap">
+            <select id="lf-lang" class="field" style="flex:1;margin:0"></select>
+            <button id="lf-translate" type="button" class="chip"><i class="fas fa-language"></i> <span data-i18n="lang.translate">Translate</span></button>
+            <button id="lf-undo" type="button" class="chip hidden"><i class="fas fa-rotate-left"></i> <span data-i18n="lang.undo">Restore original</span></button>
+          </div>
           <textarea id="lf-text" class="field" rows="10" data-i18n-ph="lf.textPh" style="margin-top:.6rem"></textarea>
           <button id="lf-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-align-left"></i> <span data-i18n="lf.generate">Generate</span></button>
           <div id="lf-progress" style="color:var(--muted);margin-top:.6rem"></div>
