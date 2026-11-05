@@ -7,6 +7,7 @@
         en: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Long-form','nav.library':'Voice Library','nav.history':'History',
           'common.ok':'OK','common.cancel':'Cancel','common.iosSaveHint':'Long-press the audio to save it.',
+          'relay.pair':'Pair','relay.pairCode':'Pairing code:','relay.title':'Private relay','relay.url':'Relay URL','relay.token':'Token','relay.sub':'Subfolder (optional)','relay.save':'Save & test','relay.off':'Turn off','relay.chip':'Relay','relay.saved':'Saved:','relay.fail':'Relay failed','relay.pingFail':'Relay not reachable or wrong token',
           'vo.title':'Voice Over','vo.textPh':'Type or paste your script here...','vo.director':'Director (style instruction)','vo.directorPh':'e.g. Read calmly and slowly','vo.voice':'Voice','vo.generate':'Generate','vo.save':'Save','vo.ready':'Ready.','vo.generating':'Generating audio...','vo.errEmpty':'Please enter some text first.',
           'preset.news':'News Anchor','preset.story':'Storyteller','preset.cheerful':'Cheerful','preset.sad':'Sad','preset.calm':'Calm','preset.energetic':'Energetic','preset.asmr':'ASMR','preset.ads':'Hard-Sell Ad','preset.friendly':'Friendly','preset.firm':'Firm',
           'lib.title':'Voice Library','lib.all':'All','lib.female':'Female','lib.male':'Male','lib.fav':'Favorites','lib.preview':'Preview','lib.previewText':'Hello, this is a preview of my voice.',
@@ -23,6 +24,7 @@
         id: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Naskah Panjang','nav.library':'Pustaka Suara','nav.history':'Riwayat',
           'common.ok':'OK','common.cancel':'Batal','common.iosSaveHint':'Tekan lama audio untuk menyimpannya.',
+          'relay.pair':'Pasangkan','relay.pairCode':'Kode pairing:','relay.title':'Relay pribadi','relay.url':'URL relay','relay.token':'Token','relay.sub':'Subfolder (opsional)','relay.save':'Simpan & uji','relay.off':'Matikan','relay.chip':'Relay','relay.saved':'Tersimpan:','relay.fail':'Relay gagal','relay.pingFail':'Relay tidak terjangkau atau token salah',
           'vo.title':'Voice Over','vo.textPh':'Ketik atau tempel naskahmu di sini...','vo.director':'Director (instruksi gaya)','vo.directorPh':'mis. Baca dengan tenang dan pelan','vo.voice':'Suara','vo.generate':'Buat','vo.save':'Simpan','vo.ready':'Siap.','vo.generating':'Membuat audio...','vo.errEmpty':'Masukkan teks dulu ya.',
           'preset.news':'Pembaca Berita','preset.story':'Pendongeng','preset.cheerful':'Ceria','preset.sad':'Sedih','preset.calm':'Tenang','preset.energetic':'Energik','preset.asmr':'ASMR','preset.ads':'Iklan Hard-Sell','preset.friendly':'Ramah','preset.firm':'Tegas',
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Pria','lib.fav':'Favorit','lib.preview':'Pratinjau','lib.previewText':'Halo, ini contoh suara saya.',
@@ -39,6 +41,7 @@
         ms: {
           'nav.voiceover':'Voice Over','nav.dialog':'Dialog','nav.longform':'Skrip Panjang','nav.library':'Pustaka Suara','nav.history':'Sejarah',
           'common.ok':'OK','common.cancel':'Batal','common.iosSaveHint':'Tekan lama audio untuk menyimpannya.',
+          'relay.pair':'Pasangkan','relay.pairCode':'Kod pasangan:','relay.title':'Relay peribadi','relay.url':'URL relay','relay.token':'Token','relay.sub':'Subfolder (pilihan)','relay.save':'Simpan & uji','relay.off':'Matikan','relay.chip':'Relay','relay.saved':'Disimpan:','relay.fail':'Relay gagal','relay.pingFail':'Relay tidak dapat dicapai atau token salah',
           'vo.title':'Voice Over','vo.textPh':'Taip atau tampal skrip anda di sini...','vo.director':'Director (arahan gaya)','vo.directorPh':'cth. Baca dengan tenang dan perlahan','vo.voice':'Suara','vo.generate':'Jana','vo.save':'Simpan','vo.ready':'Sedia.','vo.generating':'Menjana audio...','vo.errEmpty':'Sila masukkan teks dahulu.',
           'preset.news':'Pembaca Berita','preset.story':'Pencerita','preset.cheerful':'Ceria','preset.sad':'Sedih','preset.calm':'Tenang','preset.energetic':'Bertenaga','preset.asmr':'ASMR','preset.ads':'Iklan Hard-Sell','preset.friendly':'Mesra','preset.firm':'Tegas',
           'lib.title':'Pustaka Suara','lib.all':'Semua','lib.female':'Wanita','lib.male':'Lelaki','lib.preview':'Pratonton','lib.fav':'Kegemaran','lib.previewText':'Helo, ini contoh suara saya.',
@@ -218,7 +221,29 @@
         const end=enc.flush(); if(end.length) out.push(end);
         return new Blob(out,{type:'audio/mpeg'});
       };
+      window.relayCfg = function(){
+        try{ const c=JSON.parse(localStorage.getItem('vo_relay')||'null'); return (c && c.url && c.token) ? c : null; }catch(e){ return null; }
+      };
+      window.relayToast = function(msg){
+        let el=document.getElementById('relay-toast');
+        if(!el){ el=document.createElement('div'); el.id='relay-toast'; el.className='panel'; el.setAttribute('role','status');
+          el.style.cssText='position:fixed;right:1rem;bottom:1rem;z-index:10001;padding:.6rem .9rem;font-size:.85rem;max-width:80vw;word-break:break-all';
+          document.body.appendChild(el); }
+        el.textContent=msg; el.classList.remove('hidden'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.add('hidden'),4000);
+      };
+      window.relaySend = async function(blob, filename){
+        const c=window.relayCfg(); if(!c) return false;
+        try{
+          const u=c.url.replace(/\/+$/,'')+'/simpan?nama='+encodeURIComponent(filename)+'&sub='+encodeURIComponent(c.sub||'');
+          const r=await fetch(u,{method:'POST',headers:{'X-Relay-Token':c.token,'Content-Type':blob.type||'application/octet-stream'},body:blob});
+          const j=await r.json().catch(()=>({}));
+          if(r.ok && j.ok){ window.relayToast(t('relay.saved')+' '+(c.sub?c.sub+'/':'')+(j.nama||filename)); return true; }
+        }catch(e){}
+        window.relayToast(t('relay.fail')); return false;
+      };
+      window.relayAuto = function(blob, filename){ if(window.relayCfg()) window.relaySend(blob, filename); };
       window.downloadBlob = async function(blob, filename){
+        if(window.relayCfg() && await window.relaySend(blob, filename)) return;
         if(window.__isIOS && window.__isIOS()){ await window.__iosShareOrSaveBlob(blob, filename); return; }
         const url=URL.createObjectURL(blob); const a=document.createElement('a');
         a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove();
@@ -688,6 +713,67 @@
         });
       })();
 
+      // === RELAY PANEL (Ctrl+Alt+Shift+R) ===
+      (function(){
+        const chip=document.createElement('button'); chip.id='relay-chip'; chip.type='button'; chip.className='chip hidden';
+        chip.style.cssText='position:fixed;left:1rem;bottom:1rem;z-index:10001';
+        document.body.appendChild(chip);
+        function sync(){ const c=window.relayCfg(); chip.classList.toggle('hidden', !c); if(c) chip.textContent='⇪ '+t('relay.chip')+(c.sub?' · '+c.sub:''); }
+        function open(){
+          const c=window.relayCfg()||{};
+          const ov=document.createElement('div'); ov.className='ui-modal'; ov.id='relay-panel'; ov.style.zIndex='10002';
+          ov.innerHTML='<div class="ui-modal-box panel"><h3 style="margin-top:0"></h3>'
+            +'<label class="r-l1"></label><input id="relay-url" class="field" autocomplete="off">'
+            +'<label class="r-l2"></label><input id="relay-token" class="field" type="password" autocomplete="off">'
+            +'<label class="r-l3"></label><input id="relay-sub" class="field" autocomplete="off">'
+            +'<p class="r-msg" style="min-height:1.2em"></p>'
+            +'<div style="display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap"><button id="relay-off" class="chip"></button><button id="relay-cancel" class="chip"></button><button id="relay-pair" class="chip"></button><button id="relay-save" class="btn-primary"></button></div></div>';
+          ov.querySelector('h3').textContent=t('relay.title');
+          ov.querySelector('.r-l1').textContent=t('relay.url');
+          ov.querySelector('.r-l2').textContent=t('relay.token');
+          ov.querySelector('.r-l3').textContent=t('relay.sub');
+          ov.querySelector('#relay-off').textContent=t('relay.off');
+          ov.querySelector('#relay-cancel').textContent=t('common.cancel');
+          ov.querySelector('#relay-save').textContent=t('relay.save');
+          ov.querySelector('#relay-pair').textContent=t('relay.pair');
+          const url=ov.querySelector('#relay-url'), tok=ov.querySelector('#relay-token'), sub=ov.querySelector('#relay-sub'), msg=ov.querySelector('.r-msg');
+          url.value=c.url||''; tok.value=c.token||''; sub.value=c.sub||'';
+          let pairId=0;
+          const close=()=>{ pairId++; ov.remove(); sync(); };
+          const baseUrl=()=>url.value.trim().replace(/\/+$/,'');
+          async function simpan(){
+            const cfg={ url:baseUrl(), token:tok.value.trim(), sub:sub.value.trim().replace(/[^A-Za-z0-9._-]+/g,'_').slice(0,60) };
+            msg.textContent='...';
+            try{ const r=await fetch(cfg.url+'/ping',{headers:{'X-Relay-Token':cfg.token}}); const j=await r.json();
+              if(r.ok && j.ok){ localStorage.setItem('vo_relay', JSON.stringify(cfg)); close(); window.relayToast('⇪ '+t('relay.chip')+' ON'+(cfg.sub?' · '+cfg.sub:'')); return; } }catch(e){}
+            msg.textContent=t('relay.pingFail');
+          }
+          ov.querySelector('#relay-cancel').addEventListener('click',close);
+          ov.querySelector('#relay-off').addEventListener('click',()=>{ localStorage.removeItem('vo_relay'); close(); });
+          ov.querySelector('#relay-save').addEventListener('click', simpan);
+          ov.querySelector('#relay-pair').addEventListener('click', async ()=>{
+            const my=++pairId; msg.textContent='...';
+            try{
+              const r=await fetch(baseUrl()+'/pasang/mulai',{method:'POST'}); const j=await r.json();
+              if(!(r.ok && j.ok)) throw new Error('mulai');
+              msg.textContent=t('relay.pairCode')+' '+j.code;
+              for(let i=0;i<150 && my===pairId;i++){
+                await new Promise(res=>setTimeout(res,2000));
+                if(my!==pairId) return;
+                const k=await fetch(baseUrl()+'/pasang/cek?id='+encodeURIComponent(j.id)).then(x=>x.json()).catch(()=>({}));
+                if(k.siap && k.token){ tok.value=k.token; await simpan(); return; }
+              }
+              if(my===pairId) msg.textContent=t('relay.pingFail');
+            }catch(e){ if(my===pairId) msg.textContent=t('relay.pingFail'); }
+          });
+          document.body.appendChild(ov); url.focus();
+        }
+        document.addEventListener('keydown', e=>{ if(e.ctrlKey && e.altKey && e.shiftKey && e.code==='KeyR'){ e.preventDefault(); open(); } });
+        chip.addEventListener('click', open);
+        document.addEventListener('vo-lang-changed', sync);
+        sync();
+      })();
+
       // === TAB: VOICE OVER ===
       (function(){
         const text=document.getElementById('vo-text');
@@ -755,7 +841,7 @@
           audio.style.display='none'; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); save.classList.add('hidden');
           try{
             const r=await generateSpeech(finalText, sel.value, {model:window.ttsModel(), languageCode: langSel.value || undefined});
-            lastBlob=r.blob; lastText=main;
+            lastBlob=r.blob; lastText=main; window.relayAuto(r.blob, 'vo-'+Date.now()+'.wav');
             audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; statusText.textContent=''; wave.classList.remove('animate'); wave.style.display='none';
             dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); save.classList.remove('hidden');
           }catch(e){ statusText.textContent=friendlyTtsError(e); wave.classList.remove('animate'); wave.style.display='none'; }
@@ -855,7 +941,7 @@
           const script=scr.value.trim(); if(!script){ window.uiNotify(t('dlg.errEmpty')); return; }
           gen.disabled=true; status.textContent=t('vo.generating'); dl.classList.add('hidden'); mp3.classList.add('hidden'); audio.style.display='none';
           try{ const r=await generateDialog(applyPron(script), [{name:n1.value||'Host',voice:s1.value},{name:n2.value||'Guest',voice:s2.value}], {model:window.ttsModel(), languageCode: langSel.value || undefined});
-            lastBlob=r.blob; audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; status.textContent=''; dl.classList.remove('hidden'); mp3.classList.remove('hidden'); }
+            lastBlob=r.blob; window.relayAuto(r.blob, 'dialog-'+Date.now()+'.wav'); audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; status.textContent=''; dl.classList.remove('hidden'); mp3.classList.remove('hidden'); }
           catch(e){ status.textContent=friendlyTtsError(e); } finally{ gen.disabled=false; }
         });
         dl.addEventListener('click',()=>{ if(lastBlob) window.downloadBlob(lastBlob, 'dialog-'+Date.now()+'.wav'); });
@@ -878,7 +964,7 @@
           const text=txt.value.trim(); if(!text){ window.uiNotify(t('lf.errEmpty')); return; }
           gen.disabled=true; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); audio.style.display='none'; prog.textContent=t('lf.starting');
           try{ lastText=text; const r=await generateLongform(applyPron(text), sel.value, {model:window.ttsModel(), languageCode: langSel.value || undefined, onProgress:(d,tt)=>{ prog.textContent=t('lf.segment')+' '+d+'/'+tt; }});
-            lastBlob=r.blob; audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; prog.textContent=r.segments+' '+t('lf.done'); dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); }
+            lastBlob=r.blob; window.relayAuto(r.blob, 'longform-'+Date.now()+'.wav'); audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; prog.textContent=r.segments+' '+t('lf.done'); dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); }
           catch(e){ prog.textContent=friendlyTtsError(e); } finally{ gen.disabled=false; }
         });
         dl.addEventListener('click',()=>{ if(lastBlob) window.downloadBlob(lastBlob, 'longform-'+Date.now()+'.wav'); });
