@@ -19,6 +19,7 @@
         <button class="main-tab-btn" data-tab="voiceover"><i class="fas fa-microphone-lines"></i> <span data-i18n="nav.voiceover">Voice Over</span></button>
         <button class="main-tab-btn" data-tab="dialog"><i class="fas fa-comments"></i> <span data-i18n="nav.dialog">Dialog</span></button>
         <button class="main-tab-btn" data-tab="longform"><i class="fas fa-align-left"></i> <span data-i18n="nav.longform">Long-form</span></button>
+        <button class="main-tab-btn" data-tab="queue"><i class="fas fa-list-ol"></i> <span data-i18n="nav.queue">Queue</span></button>
         <button class="main-tab-btn" data-tab="library"><i class="fas fa-record-vinyl"></i> <span data-i18n="nav.library">Voice Library</span></button>
         <button class="main-tab-btn" data-tab="history"><i class="fas fa-clock-rotate-left"></i> <span data-i18n="nav.history">History</span></button>
       </nav>
@@ -52,6 +53,7 @@
             </div>
             <textarea id="vo-text" class="field" rows="6" data-i18n-ph="vo.textPh"></textarea>
             <div id="vo-counter" style="color:var(--muted);font-size:.8rem;margin-top:.25rem"></div>
+            <div id="vo-etags" class="etags"></div>
             <label class="lbl" data-i18n="vo.director">Director</label>
             <input id="vo-director" class="field" data-i18n-ph="vo.directorPh">
             <div id="vo-presets" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem"></div>
@@ -123,6 +125,36 @@
             <button id="lf-mp3" class="chip hidden" style="flex:1;justify-content:center">MP3</button>
             <button id="lf-srt" class="chip hidden" style="flex:1;justify-content:center">SRT</button>
           </div>
+        </div>
+      </div>
+      <div id="content-queue" class="main-content-panel hidden">
+        <div class="vo-grid">
+          <section class="panel col-input" style="padding:1.25rem">
+            <h2 data-i18n="qu.title" style="margin-top:0">Queue (batch)</h2>
+            <p style="color:var(--muted);font-size:.82rem;margin-top:0" data-i18n="qu.hint">One line per clip: ID | [emotion] text</p>
+            <textarea id="q-input" class="field" rows="10" spellcheck="false" data-i18n-ph="qu.inputPh" style="font-family:ui-monospace,Consolas,monospace;font-size:.82rem"></textarea>
+            <div style="display:flex;gap:.5rem;align-items:center;margin-top:.4rem">
+              <button id="q-import" type="button" class="chip"><i class="fas fa-file-import"></i> <span data-i18n="qu.import">Import .txt</span></button>
+              <input id="q-file" type="file" accept=".txt,text/plain" class="hidden">
+              <span id="q-count" style="color:var(--muted);font-size:.8rem"></span>
+            </div>
+            <div id="q-etags" class="etags"></div>
+            <label class="lbl" data-i18n="qu.director">Base Director</label>
+            <input id="q-director" class="field" data-i18n-ph="vo.directorPh">
+            <label class="lbl" data-i18n="vo.voice">Voice</label>
+            <select id="q-voice" class="field"></select>
+            <label class="lbl" data-i18n="qu.delay">Pause between requests (sec)</label>
+            <input id="q-delay" class="field" type="number" min="0" max="60" step="1" value="4">
+          </section>
+          <section class="panel" style="padding:1.25rem">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <button id="q-start" type="button" class="btn-primary glow" style="flex:1 1 140px"><i class="fas fa-play"></i> <span data-i18n="qu.start">Start</span></button>
+              <button id="q-stop" type="button" class="chip" disabled><i class="fas fa-stop"></i> <span data-i18n="qu.stop">Stop</span></button>
+              <button id="q-retry" type="button" class="chip" disabled><i class="fas fa-rotate-right"></i> <span data-i18n="qu.retry">Retry failed</span></button>
+            </div>
+            <div id="q-summary" role="status" style="color:var(--muted);font-size:.85rem;margin-top:.6rem;min-height:1.3em"></div>
+            <div id="q-list" style="display:grid;gap:.4rem;margin-top:.6rem"></div>
+          </section>
         </div>
       </div>
       <div id="content-library" class="main-content-panel hidden">

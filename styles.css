@@ -75,6 +75,22 @@
     #login-card .brand{font-size:1.7rem;justify-content:center}
     audio{filter:saturate(.9)}
 
+    /* tag emosi + antrean */
+    .etags{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;margin-top:.5rem}
+    .etags .etag-lbl{font-size:.75rem;font-weight:600;color:var(--muted);margin-right:.2rem}
+    .etags .chip{min-height:28px;padding:.2rem .6rem;font-size:.78rem}
+    .etags .etag-help{flex-basis:100%;font-size:.75rem;color:var(--muted);margin:.15rem 0 0}
+    .q-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;align-items:center;padding:.5rem .65rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);min-height:52px}
+    .q-row .q-id{font-family:ui-monospace,Consolas,monospace;font-weight:600;font-size:.82rem}
+    .q-row .q-txt{font-size:.8rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .q-row .q-act{display:flex;gap:.3rem;align-items:center}
+    .q-row .q-act button{min-height:32px;width:34px;padding:0;justify-content:center;display:inline-flex;align-items:center}
+    .q-badge{font-size:.72rem;font-weight:600;border-radius:999px;padding:.15rem .55rem;border:1px solid var(--border);color:var(--muted);min-width:72px;text-align:center}
+    .q-row[data-status="run"] .q-badge{color:var(--pink);border-color:var(--pink);background:var(--pink-soft)}
+    .q-row[data-status="done"] .q-badge{color:var(--ok);border-color:var(--ok)}
+    .q-row[data-status="fail"] .q-badge{color:var(--danger);border-color:var(--danger)}
+    .q-row[data-status="fail"]{border-color:var(--danger)}
+
     /* dark mode override (pink tetap sama) */
     html.dark{ --bg:#14121a; --surface:#1c1922; --surface-2:#241f2b; --border:#302a38; --text:#ece9f1; --muted:#9a92a6; --pink-soft:#3a2030; }
     html.dark .field::placeholder{color:#7d7488}

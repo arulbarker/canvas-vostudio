@@ -14,6 +14,8 @@
           'voice.female':'Female','voice.male':'Male',
           'hist.title':'History','hist.clear':'Clear','hist.empty':'No saved audio yet.','hist.confirmDel':'Delete this item?','hist.confirmClear':'Clear all history?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Hi everyone!\nGuest: Thanks for having me.','dlg.generate':'Generate','dlg.errEmpty':'Please enter a dialog script.','dlg.hint':'Max 2 speakers per audio.','dtpl.choose':'Dialog templates...','dtpl.podcast':'Podcast','dtpl.interview':'Interview','dtpl.review':'Product review','dtpl.casual':'Casual chat',
+          'nav.queue':'Queue','qu.title':'Queue (batch)','qu.hint':'One line per clip:  ID | [emotion] text   — lines starting with # are ignored.','qu.inputPh':'ep7-s01 | [tense] The door creaked open...\nep7-s02 | [sad] She stared at the old photo.','qu.import':'Import .txt','qu.director':'Base Director (applies to every line)','qu.delay':'Pause between requests (sec)','qu.start':'Start','qu.stop':'Stop','qu.retry':'Retry failed','qu.errEmpty':'Add at least one line first.','qu.lines':'lines','qu.done':'done','qu.failN':'failed','qu.st.wait':'waiting','qu.st.run':'running','qu.st.done':'done','qu.st.fail':'failed','qu.stopped':'Stopped.','qu.finished':'Queue finished.',
+          'etag.label':'Emotion tags','etag.hint':'Put a tag at the start of a line to change the emotion from there, e.g. [sad]. Free tags work too, e.g. [hopeful].','etag.tegang':'tense','etag.sedih':'sad','etag.horor':'horror','etag.kaget':'surprised','etag.lucu':'funny','etag.hangat':'warm','etag.marah':'angry','etag.berbisik':'whisper',
           'lf.title':'Long-form Narration','lf.textPh':'Paste your long script here. It will be split and stitched into one audio.','lf.generate':'Generate','lf.errEmpty':'Please enter your script.','lf.starting':'Starting...','lf.segment':'Segment','lf.done':'segments merged.',
           'lang.vo':'VO Language','lang.auto':'Auto (match text)','lang.translate':'Translate','lang.undo':'Restore original','lang.translating':'Translating...','lang.empty':'Enter some text first.','lang.pickFirst':'Choose a target language first.',
           'wn.title':"What's New",
@@ -31,6 +33,8 @@
           'voice.female':'Wanita','voice.male':'Pria',
           'hist.title':'Riwayat','hist.clear':'Bersihkan','hist.empty':'Belum ada audio tersimpan.','hist.confirmDel':'Hapus item ini?','hist.confirmClear':'Bersihkan semua riwayat?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Halo semuanya!\nGuest: Terima kasih sudah mengundang.','dlg.generate':'Buat','dlg.errEmpty':'Masukkan naskah dialog dulu.','dlg.hint':'Maksimal 2 pembicara per audio.','dtpl.choose':'Template dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Wawancara','dtpl.review':'Review produk','dtpl.casual':'Obrolan santai',
+          'nav.queue':'Antrean','qu.title':'Antrean (batch)','qu.hint':'Satu baris per potongan:  ID | [emosi] teks   — baris berawalan # diabaikan.','qu.inputPh':'ep7-s01 | [tegang] Pintu itu berderit terbuka...\nep7-s02 | [sedih] Ia menatap foto ibunya.','qu.import':'Impor .txt','qu.director':'Director dasar (berlaku untuk semua baris)','qu.delay':'Jeda antar-request (detik)','qu.start':'Mulai','qu.stop':'Berhenti','qu.retry':'Ulangi yang gagal','qu.errEmpty':'Isi minimal satu baris dulu.','qu.lines':'baris','qu.done':'selesai','qu.failN':'gagal','qu.st.wait':'menunggu','qu.st.run':'jalan','qu.st.done':'selesai','qu.st.fail':'gagal','qu.stopped':'Dihentikan.','qu.finished':'Antrean selesai.',
+          'etag.label':'Tag emosi','etag.hint':'Taruh tag di awal baris untuk mengganti emosi mulai baris itu, mis. [sedih]. Tag bebas juga bisa, mis. [penuh harap].','etag.tegang':'tegang','etag.sedih':'sedih','etag.horor':'horor','etag.kaget':'kaget','etag.lucu':'lucu','etag.hangat':'hangat','etag.marah':'marah','etag.berbisik':'berbisik',
           'lf.title':'Narasi Naskah Panjang','lf.textPh':'Tempel naskah panjangmu di sini. Otomatis dipecah dan disambung jadi satu audio.','lf.generate':'Buat','lf.errEmpty':'Masukkan naskahmu dulu.','lf.starting':'Memulai...','lf.segment':'Segmen','lf.done':'segmen digabung.',
           'lang.vo':'Bahasa VO','lang.auto':'Otomatis (sesuai teks)','lang.translate':'Terjemahkan','lang.undo':'Pulihkan asli','lang.translating':'Menerjemahkan...','lang.empty':'Isi teks dulu.','lang.pickFirst':'Pilih bahasa target dulu.',
           'wn.title':'Yang Baru',
@@ -48,6 +52,8 @@
           'voice.female':'Wanita','voice.male':'Lelaki',
           'hist.title':'Sejarah','hist.clear':'Kosongkan','hist.empty':'Belum ada audio disimpan.','hist.confirmDel':'Padam item ini?','hist.confirmClear':'Kosongkan semua sejarah?',
           'dlg.title':'Dialog / Podcast','dlg.scriptPh':'Host: Helo semua!\nGuest: Terima kasih kerana menjemput.','dlg.generate':'Jana','dlg.errEmpty':'Sila masukkan skrip dialog dahulu.','dlg.hint':'Maksimum 2 penutur setiap audio.','dtpl.choose':'Templat dialog...','dtpl.podcast':'Podcast','dtpl.interview':'Temu bual','dtpl.review':'Ulasan produk','dtpl.casual':'Sembang santai',
+          'nav.queue':'Giliran','qu.title':'Giliran (kelompok)','qu.hint':'Satu baris setiap klip:  ID | [emosi] teks   — baris bermula # diabaikan.','qu.inputPh':'ep7-s01 | [tegang] Pintu itu berkeriut terbuka...\nep7-s02 | [sedih] Dia merenung gambar ibunya.','qu.import':'Import .txt','qu.director':'Director asas (untuk semua baris)','qu.delay':'Jeda antara permintaan (saat)','qu.start':'Mula','qu.stop':'Henti','qu.retry':'Ulang yang gagal','qu.errEmpty':'Isi sekurang-kurangnya satu baris dahulu.','qu.lines':'baris','qu.done':'siap','qu.failN':'gagal','qu.st.wait':'menunggu','qu.st.run':'berjalan','qu.st.done':'siap','qu.st.fail':'gagal','qu.stopped':'Dihentikan.','qu.finished':'Giliran selesai.',
+          'etag.label':'Tag emosi','etag.hint':'Letak tag di awal baris untuk menukar emosi mulai baris itu, cth. [sedih]. Tag bebas juga boleh, cth. [penuh harapan].','etag.tegang':'tegang','etag.sedih':'sedih','etag.horor':'seram','etag.kaget':'terkejut','etag.lucu':'lucu','etag.hangat':'mesra','etag.marah':'marah','etag.berbisik':'berbisik',
           'lf.title':'Naratif Skrip Panjang','lf.textPh':'Tampal skrip panjang anda di sini. Ia akan dipecah dan dicantum jadi satu audio.','lf.generate':'Jana','lf.errEmpty':'Sila masukkan skrip anda.','lf.starting':'Bermula...','lf.segment':'Segmen','lf.done':'segmen dicantum.',
           'lang.vo':'Bahasa VO','lang.auto':'Automatik (ikut teks)','lang.translate':'Terjemah','lang.undo':'Pulihkan asal','lang.translating':'Menterjemah...','lang.empty':'Isi teks dahulu.','lang.pickFirst':'Pilih bahasa sasaran dahulu.',
           'wn.title':'Apa Baharu',
@@ -307,7 +313,7 @@
         const apiUrl='https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+apiKey;
         const payload={contents:[{parts:[{text}]}],generationConfig:{responseModalities:["AUDIO"],speechConfig:Object.assign({voiceConfig:{prebuiltVoiceConfig:{voiceName:voiceId}}}, languageCode?{languageCode:languageCode}:{})}};
         const resp=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-        if(!resp.ok) throw new Error('API '+resp.status);
+        if(!resp.ok){ const e=await resp.json().catch(()=>({})); throw new Error('API '+resp.status+': '+((e&&e.error&&e.error.message)||'error')); }
         const r=await resp.json(); const part=r&&r.candidates&&r.candidates[0]&&r.candidates[0].content&&r.candidates[0].content.parts&&r.candidates[0].content.parts[0];
         if(!part||!part.inlineData||!part.inlineData.data) throw new Error('No audio');
         const rate=parseInt((part.inlineData.mimeType.match(/rate=(\d+)/)||[])[1],10)||24000;
@@ -331,6 +337,34 @@
         const merged=new Uint8Array(total); let off=0;
         for(const p of pcmParts){ merged.set(p, off); off+=p.length; }
         return { blob: pcmToWav(merged.buffer, rate), rate, segments: chunks.length };
+      }
+
+      async function pcmWithRetry(text, voiceId, model, languageCode){
+        for(let attempt=1;;attempt++){
+          try{ return await generatePcm(text, voiceId, model, languageCode); }
+          catch(e){
+            const m=(e&&e.message)||'';
+            if(attempt>=3 || /\b(400|401|403)\b/.test(m)) throw e;
+            await new Promise(r=>setTimeout(r, (/\b429\b/.test(m)?4000:1500)*attempt));
+          }
+        }
+      }
+      async function generateTagged(text, voiceId, baseDirector, opts){
+        opts = opts || {};
+        const model = opts.model || 'gemini-2.5-flash-preview-tts';
+        const segs = window.parseEmotionSegments(text);
+        if(!segs.length) throw new Error('No text');
+        const parts=new Array(segs.length); let rate=24000;
+        for(let i=0;i<segs.length;i++){
+          const dir=window.emotionDirector(baseDirector, segs[i].emo || opts.emo || null);
+          const spoken=applyPron(segs[i].text);
+          const r=await pcmWithRetry(dir ? (dir.replace(/[\s.:]+$/,'')+': '+spoken) : spoken, voiceId, model, opts.languageCode);
+          parts[i]=r.pcm; rate=r.rate;
+        }
+        const total=parts.reduce((a,p)=>a+p.length,0);
+        const merged=new Uint8Array(total); let off=0;
+        for(const p of parts){ merged.set(p, off); off+=p.length; }
+        return { blob: pcmToWav(merged.buffer, rate), rate, segments: segs.length, plain: segs.map(s=>s.text).join('\n') };
       }
 
       async function generateDialog(script, speakers, opts){
@@ -455,6 +489,58 @@
         {key:'firm',    val:'Say this in a firm, authoritative tone'}
       ];
 
+      // === EMOTION TAGS (pure) ===
+      window.EMOTION_TAGS = [
+        {key:'tegang',   aliases:['tense','suspense'],             val:'tense and suspenseful, with restrained urgency'},
+        {key:'sedih',    aliases:['sad'],                          val:'sad and heavy-hearted, a little softer and slower'},
+        {key:'horor',    aliases:['horror','creepy','seram'],      val:'eerie and unsettling, low and hushed like a horror story'},
+        {key:'kaget',    aliases:['surprised','shocked','terkejut'],val:'surprised and startled, with a sudden lift in the voice'},
+        {key:'lucu',     aliases:['funny','humorous'],             val:'playful and amused, with a light comedic touch'},
+        {key:'hangat',   aliases:['warm','mesra'],                 val:'warm and gentle, like talking to someone close'},
+        {key:'marah',    aliases:['angry'],                        val:'angry and sharp, with controlled intensity'},
+        {key:'berbisik', aliases:['whisper','whispering','bisik'], val:'whispering, quiet and close to the microphone'}
+      ];
+      window.resolveEmotion = function(tag){
+        var l = String(tag||'').trim().toLowerCase();
+        var hit = window.EMOTION_TAGS.find(function(x){ return x.key===l || x.aliases.indexOf(l)>=0; });
+        return hit ? hit.val : String(tag||'').trim();
+      };
+      var TAG_RE = /^\s*\[([^\]\n]{1,40})\]\s*(.*)$/;
+      window.parseEmotionSegments = function(text){
+        var segs=[], cur={emo:null, lines:[]};
+        String(text||'').split(/\r?\n/).forEach(function(line){
+          var m=line.match(TAG_RE);
+          if(m){ segs.push(cur); cur={emo:m[1].trim(), lines:[m[2]]}; }
+          else cur.lines.push(line);
+        });
+        segs.push(cur);
+        return segs.map(function(s){ return {emo:s.emo, text:s.lines.join('\n').trim()}; }).filter(function(s){ return s.text; });
+      };
+      window.emotionDirector = function(base, emo){
+        var b=String(base||'').trim();
+        if(!emo) return b;
+        var part='For this part: '+window.resolveEmotion(emo)+', still natural and not exaggerated.';
+        return b ? b.replace(/[\s.]+$/,'')+'. '+part : part;
+      };
+      window.parseQueueLines = function(text){
+        var out=[], seen={}, n=0;
+        String(text||'').split(/\r?\n/).forEach(function(raw){
+          var line=raw.trim();
+          if(!line || line.charAt(0)==='#') return;
+          n++;
+          var id='', rest=line, bar=line.indexOf('|');
+          if(bar>=0){ id=line.slice(0,bar).trim().replace(/[^A-Za-z0-9._-]+/g,'_').replace(/^_+|_+$/g,'').slice(0,80); rest=line.slice(bar+1); }
+          if(!id) id='baris-'+(n<10?'0':'')+n;
+          var emo=null, m=rest.match(TAG_RE);
+          if(m){ emo=m[1].trim(); rest=m[2]; }
+          rest=rest.trim(); if(!rest) return;
+          if(seen[id]){ seen[id]++; id=id+'-'+seen[id]; } else seen[id]=1;
+          out.push({id:id, emo:emo, text:rest});
+        });
+        return out;
+      };
+      // === END EMOTION TAGS ===
+
       // Template naskah siap-pakai (per bahasa)
       window.SCRIPT_TEMPLATES = [
         {key:'intro', text:{
@@ -515,6 +601,31 @@
         });
         return out;
       }
+
+      function insertEmotionTag(ta, word, queueMode){
+        const v=ta.value, pos=ta.selectionStart||0;
+        const ls=v.lastIndexOf('\n', pos-1)+1;
+        let le=v.indexOf('\n', pos); if(le<0) le=v.length;
+        const line=v.slice(ls, le);
+        const bar=queueMode ? line.indexOf('|') : -1;
+        const head=bar>=0 ? line.slice(0, bar+1)+' ' : '';
+        const body=(bar>=0 ? line.slice(bar+1) : line).replace(/^\s*\[[^\]\n]{1,40}\]\s*/,'').replace(/^\s+/,'');
+        const next=head+'['+word+'] '+body;
+        ta.value=v.slice(0, ls)+next+v.slice(le);
+        const caret=ls+next.length; ta.focus(); ta.setSelectionRange(caret, caret);
+        ta.dispatchEvent(new Event('input'));
+      }
+      function renderEtagChips(box, ta, queueMode){
+        box.innerHTML='';
+        const lbl=document.createElement('span'); lbl.className='etag-lbl'; lbl.textContent=t('etag.label')+':'; box.appendChild(lbl);
+        (window.EMOTION_TAGS||[]).forEach(x=>{
+          const w=t('etag.'+x.key);
+          const b=document.createElement('button'); b.type='button'; b.className='chip'; b.dataset.etag=x.key; b.textContent='['+w+']';
+          b.addEventListener('click',()=>insertEmotionTag(ta, w, queueMode));
+          box.appendChild(b);
+        });
+        const help=document.createElement('p'); help.className='etag-help'; help.textContent=t('etag.hint'); box.appendChild(help);
+      }
       window.openPronModal = function(){
         var pairs = window.getPron(); if(!pairs.length) pairs = [{from:'',to:''}];
         var ov=document.createElement('div'); ov.className='ui-modal';
@@ -550,8 +661,12 @@
       };
 
       // === VERSION / CHANGELOG ===
-      window.APP_VERSION='1.0';
+      window.APP_VERSION='1.1';
       window.CHANGELOG=[
+        {version:'1.1', date:'2026-11-13', changes:[
+          {en:'Emotion tags per line: start a line with [sad], [tense], [whisper]... to change the emotion from there.', id:'Tag emosi per baris: awali baris dengan [sedih], [tegang], [berbisik]... untuk mengganti emosi mulai baris itu.', ms:'Tag emosi setiap baris: mulakan baris dengan [sedih], [tegang], [berbisik]... untuk menukar emosi mulai baris itu.'},
+          {en:'New Queue tab: paste or import many lines (ID | [emotion] text) and generate them all in one go.', id:'Tab Antrean baru: tempel atau impor banyak baris (ID | [emosi] teks) lalu buat semuanya sekaligus.', ms:'Tab Giliran baharu: tampal atau import banyak baris (ID | [emosi] teks) dan jana semuanya sekali gus.'}
+        ]},
         {version:'1.0', date:'2026-09-14', changes:[
           {en:'Initial release: Voice Over, Dialog, Long-form, Voice Library, History.', id:'Rilis awal: Voice Over, Dialog, Naskah Panjang, Pustaka Suara, Riwayat.', ms:'Keluaran awal: Voice Over, Dialog, Skrip Panjang, Pustaka Suara, Sejarah.'}
         ]}
@@ -825,6 +940,9 @@
         }
         renderPresets();
         document.addEventListener('vo-lang-changed', renderPresets);
+        const etags=document.getElementById('vo-etags');
+        renderEtagChips(etags, text);
+        document.addEventListener('vo-lang-changed', ()=>renderEtagChips(etags, text));
 
         text.addEventListener('input',()=>{
           const n=text.value.length; const w=text.value.trim()?text.value.trim().split(/\s+/).length:0;
@@ -835,13 +953,11 @@
           const main=text.value.trim();
           if(!main){ window.uiNotify(t('vo.errEmpty')); return; }
           const dir=director.value.trim();
-          const spoken=applyPron(main);
-          const finalText = dir ? (dir+': '+spoken) : spoken;
           gen.disabled=true; statusText.textContent=t('vo.generating'); wave.style.display='flex'; wave.classList.add('animate');
           audio.style.display='none'; dl.classList.add('hidden'); mp3.classList.add('hidden'); srt.classList.add('hidden'); save.classList.add('hidden');
           try{
-            const r=await generateSpeech(finalText, sel.value, {model:window.ttsModel(), languageCode: langSel.value || undefined});
-            lastBlob=r.blob; lastText=main; window.relayAuto(r.blob, 'vo-'+Date.now()+'.wav');
+            const r=await generateTagged(main, sel.value, dir, {model:window.ttsModel(), languageCode: langSel.value || undefined});
+            lastBlob=r.blob; lastText=r.plain; window.relayAuto(r.blob, 'vo-'+Date.now()+'.wav');
             audio.src=URL.createObjectURL(r.blob); audio.style.display='block'; statusText.textContent=''; wave.classList.remove('animate'); wave.style.display='none';
             dl.classList.remove('hidden'); mp3.classList.remove('hidden'); srt.classList.remove('hidden'); save.classList.remove('hidden');
           }catch(e){ statusText.textContent=friendlyTtsError(e); wave.classList.remove('animate'); wave.style.display='none'; }
@@ -852,6 +968,113 @@
         mp3.addEventListener('click', async ()=>{ if(lastBlob && window.wavBlobToMp3){ const m=await window.wavBlobToMp3(lastBlob); window.downloadBlob(m,'vo-'+Date.now()+'.mp3'); } });
         srt.addEventListener('click', async ()=>{ if(!lastBlob) return; const dur=await window.wavDurationSec(lastBlob); const s=window.buildSRT(lastText,dur); window.downloadBlob(new Blob([s],{type:'text/plain'}),'vo-'+Date.now()+'.srt'); });
         save.addEventListener('click',()=>{ if(lastBlob && window.VOHistory) window.VOHistory.add({text:lastText, voice:sel.value, blob:lastBlob}); });
+      })();
+
+      // === TAB: QUEUE ===
+      (function(){
+        const input=document.getElementById('q-input'), fileEl=document.getElementById('q-file');
+        const director=document.getElementById('q-director'), voiceSel=document.getElementById('q-voice'), delayEl=document.getElementById('q-delay');
+        const startBtn=document.getElementById('q-start'), stopBtn=document.getElementById('q-stop'), retryBtn=document.getElementById('q-retry');
+        const list=document.getElementById('q-list'), summary=document.getElementById('q-summary'), count=document.getElementById('q-count');
+        const etags=document.getElementById('q-etags');
+        let items=[], running=false, stopReq=false, note='';
+        const player=new Audio();
+        const store={ get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+
+        fillVoiceSelect(voiceSel, true);
+        renderEtagChips(etags, input, true);
+        document.addEventListener('vo-lang-changed', ()=>{ const v=voiceSel.value; fillVoiceSelect(voiceSel, true); voiceSel.value=v; renderEtagChips(etags, input, true); renderAll(); updateCount(); });
+        input.value=store.get('vo_queue_text')||''; director.value=store.get('vo_queue_dir')||'';
+        const savedVoice=store.get('vo_queue_voice'); if(savedVoice) voiceSel.value=savedVoice;
+
+        function updateCount(){ const n=window.parseQueueLines(input.value).length; count.textContent=n ? n+' '+t('qu.lines') : ''; }
+        input.addEventListener('input',()=>{ store.set('vo_queue_text', input.value); updateCount(); });
+        director.addEventListener('input',()=>store.set('vo_queue_dir', director.value));
+        voiceSel.addEventListener('change',()=>store.set('vo_queue_voice', voiceSel.value));
+        updateCount();
+
+        document.getElementById('q-import').addEventListener('click',()=>fileEl.click());
+        fileEl.addEventListener('change', async ()=>{
+          const f=fileEl.files && fileEl.files[0]; if(!f) return;
+          input.value=(await f.text()).replace(/^﻿/,''); fileEl.value='';
+          input.dispatchEvent(new Event('input'));
+        });
+
+        function rowFor(it){
+          const row=document.createElement('div'); row.className='q-row';
+          const left=document.createElement('div'); left.style.minWidth='0';
+          const head=document.createElement('div'); head.className='q-id';
+          const txt=document.createElement('div'); txt.className='q-txt';
+          left.appendChild(head); left.appendChild(txt);
+          const act=document.createElement('div'); act.className='q-act';
+          const badge=document.createElement('span'); badge.className='q-badge';
+          const play=document.createElement('button'); play.type='button'; play.className='chip q-play'; play.innerHTML='<i class="fas fa-play"></i>';
+          const dl=document.createElement('button'); dl.type='button'; dl.className='chip q-dl'; dl.innerHTML='<i class="fas fa-download"></i>';
+          play.addEventListener('click',()=>{ if(!it.blob) return; if(!it.url) it.url=URL.createObjectURL(it.blob); player.src=it.url; player.play(); });
+          dl.addEventListener('click',()=>{ if(it.blob) window.downloadBlob(it.blob, it.id+'.wav'); });
+          act.appendChild(badge); act.appendChild(play); act.appendChild(dl);
+          row.appendChild(left); row.appendChild(act);
+          it.el={row, head, txt, badge, play, dl};
+          paint(it);
+          return row;
+        }
+        function paint(it){
+          const e=it.el; if(!e) return;
+          e.row.dataset.status=it.status; e.row.dataset.id=it.id;
+          e.head.textContent=it.id+(it.emo?'  ['+it.emo+']':'');
+          e.txt.textContent=it.status==='fail' && it.err ? it.err : it.text;
+          e.txt.title=it.text;
+          e.badge.textContent=t('qu.st.'+it.status);
+          e.play.disabled=e.dl.disabled=!it.blob;
+        }
+        function renderAll(){ list.innerHTML=''; items.forEach(it=>list.appendChild(rowFor(it))); sync(); }
+        function sync(){
+          const done=items.filter(i=>i.status==='done').length, fail=items.filter(i=>i.status==='fail').length;
+          summary.textContent=items.length ? (done+'/'+items.length+' '+t('qu.done')+' · '+fail+' '+t('qu.failN')+(note?' · '+note:'')) : note;
+          startBtn.disabled=running; stopBtn.disabled=!running; retryBtn.disabled=running || !fail;
+          input.readOnly=running;
+        }
+        function setStatus(it, s){ it.status=s; paint(it); sync(); }
+
+        async function run(batch){
+          if(running || !batch.length) return;
+          running=true; stopReq=false; note=''; sync();
+          const gap=Math.max(0, Math.min(60, parseFloat(delayEl.value)||0))*1000;
+          const base=director.value.trim(), voice=voiceSel.value, model=window.ttsModel();
+          let first=true;
+          for(const it of batch){
+            if(stopReq) break;
+            if(!first && gap) await new Promise(r=>setTimeout(r, gap));
+            first=false;
+            if(stopReq) break;
+            it.err=''; setStatus(it,'run');
+            try{
+              const r=await generateTagged(it.text, voice, base, {model, emo: it.emo});
+              it.blob=r.blob; if(it.url){ URL.revokeObjectURL(it.url); it.url=null; }
+              setStatus(it,'done');
+              window.relayAuto(r.blob, it.id+'.wav');
+            }catch(e){
+              it.err=friendlyTtsError(e); setStatus(it,'fail');
+              if(it.err===t('err.canvasOnly')){ stopReq=true; }
+            }
+          }
+          running=false; note=stopReq ? t('qu.stopped') : t('qu.finished'); sync();
+        }
+
+        startBtn.addEventListener('click',()=>{
+          const parsed=window.parseQueueLines(input.value);
+          if(!parsed.length){ window.uiNotify(t('qu.errEmpty')); return; }
+          items.forEach(it=>{ if(it.url) URL.revokeObjectURL(it.url); });
+          items=parsed.map(p=>({id:p.id, emo:p.emo, text:p.text, status:'wait', blob:null, url:null, err:''}));
+          note=''; renderAll(); run(items.slice());
+        });
+        stopBtn.addEventListener('click',()=>{ stopReq=true; stopBtn.disabled=true; });
+        retryBtn.addEventListener('click',()=>{
+          const failed=items.filter(it=>it.status==='fail');
+          failed.forEach(it=>setStatus(it,'wait'));
+          run(failed);
+        });
+        sync();
       })();
 
       // === TAB: VOICE LIBRARY ===
