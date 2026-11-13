@@ -45,7 +45,10 @@
         <div class="vo-grid">
           <section class="panel col-input" style="padding:1.25rem">
             <h2 data-i18n="vo.title" style="margin-top:0">Voice Over</h2>
-            <select id="vo-template" class="field" style="margin-bottom:.6rem"><option value="" data-i18n="tpl.choose">Script templates...</option></select>
+            <div style="display:flex;gap:.5rem;margin-bottom:.6rem;align-items:center">
+              <select id="vo-template" class="field" style="flex:1;margin:0"><option value="" data-i18n="tpl.choose">Script templates...</option></select>
+              <button id="vo-import" type="button" class="chip"><i class="fas fa-file-import"></i> <span data-i18n="qu.import">Import .txt</span></button>
+            </div>
             <div style="display:flex;gap:.5rem;margin-bottom:.6rem;align-items:center;flex-wrap:wrap">
               <select id="vo-lang" class="field" style="flex:1;margin:0"></select>
               <button id="vo-translate" type="button" class="chip"><i class="fas fa-language"></i> <span data-i18n="lang.translate">Translate</span></button>
@@ -54,7 +57,10 @@
             <textarea id="vo-text" class="field" rows="6" data-i18n-ph="vo.textPh"></textarea>
             <div id="vo-counter" style="color:var(--muted);font-size:.8rem;margin-top:.25rem"></div>
             <div id="vo-etags" class="etags"></div>
-            <label class="lbl" data-i18n="vo.director">Director</label>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:.5rem">
+              <label class="lbl" data-i18n="vo.director">Director</label>
+              <button id="vo-dir-undo" type="button" class="chip hidden" style="min-height:28px;padding:.2rem .65rem;font-size:.78rem"><i class="fas fa-rotate-left"></i> <span data-i18n="vo.dirUndo">Undo</span></button>
+            </div>
             <input id="vo-director" class="field" data-i18n-ph="vo.directorPh">
             <div id="vo-presets" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem"></div>
             <button id="vo-pron-btn" type="button" class="chip" style="margin-top:.6rem"><i class="fas fa-book"></i> <span data-i18n="pron.btn">Pronunciation</span></button>
@@ -116,6 +122,7 @@
             <button id="lf-translate" type="button" class="chip"><i class="fas fa-language"></i> <span data-i18n="lang.translate">Translate</span></button>
             <button id="lf-undo" type="button" class="chip hidden"><i class="fas fa-rotate-left"></i> <span data-i18n="lang.undo">Restore original</span></button>
           </div>
+          <button id="lf-import" type="button" class="chip" style="margin-top:.6rem"><i class="fas fa-file-import"></i> <span data-i18n="qu.import">Import .txt</span></button>
           <textarea id="lf-text" class="field" rows="10" data-i18n-ph="lf.textPh" style="margin-top:.6rem"></textarea>
           <button id="lf-generate" class="btn-primary glow" style="width:100%;margin-top:1rem"><i class="fas fa-align-left"></i> <span data-i18n="lf.generate">Generate</span></button>
           <div id="lf-progress" style="color:var(--muted);margin-top:.6rem"></div>
@@ -145,6 +152,10 @@
             <select id="q-voice" class="field"></select>
             <label class="lbl" data-i18n="qu.delay">Pause between requests (sec)</label>
             <input id="q-delay" class="field" type="number" min="0" max="60" step="1" value="4">
+            <div id="q-sub-wrap" class="hidden">
+              <label class="lbl" data-i18n="qu.sub">Relay subfolder</label>
+              <input id="q-sub" class="field" autocomplete="off" placeholder="ep07">
+            </div>
           </section>
           <section class="panel" style="padding:1.25rem">
             <div style="display:flex;gap:.5rem;flex-wrap:wrap">
