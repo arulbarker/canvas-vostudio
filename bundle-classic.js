@@ -262,8 +262,9 @@
 
       // === TTS CORE ===
       const FLASH_TTS='gemini-2.5-flash-preview-tts', PRO_TTS='gemini-2.5-pro-preview-tts';
+      const PRO_ENABLED = false;
       window.PRO_FALLBACK=false;
-      window.ttsModel = function(){ return (localStorage.getItem('vo_model')==='pro' && !window.PRO_FALLBACK) ? PRO_TTS : FLASH_TTS; };
+      window.ttsModel = function(){ return (PRO_ENABLED && localStorage.getItem('vo_model')==='pro' && !window.PRO_FALLBACK) ? PRO_TTS : FLASH_TTS; };
       function effModel(m){ return (window.PRO_FALLBACK && m===PRO_TTS) ? FLASH_TTS : m; }
       function proDenied(model, status, msg){
         if(model===FLASH_TTS || !(status===400 || status===401 || status===403 || status===404)) return false;
@@ -783,7 +784,7 @@
           {en:'Long text is split automatically at sentence ends, and every take is checked (empty, cut off, repeating, long silence) and re-generated up to 2 times.', id:'Teks panjang dipecah otomatis di akhir kalimat, dan tiap hasil dicek (kosong, terpotong, mengulang, hening panjang) lalu dibuat ulang maksimal 2 kali.', ms:'Teks panjang dipecah automatik di hujung ayat, dan setiap hasil disemak (kosong, terpotong, berulang, senyap panjang) lalu dijana semula sehingga 2 kali.'},
           {en:'Style chips now add to your Director instead of replacing it, with an Undo button.', id:'Chip gaya kini menambah ke Director, bukan menggantinya, plus tombol Batalkan.', ms:'Cip gaya kini menambah ke Director, bukan menggantikannya, berserta butang Buat asal.'},
           {en:'Import .txt in Voice Over and Long-form, and pick a voice by typing its name.', id:'Impor .txt di Voice Over dan Naskah Panjang, dan pilih suara dengan mengetik namanya.', ms:'Import .txt dalam Voice Over dan Skrip Panjang, dan pilih suara dengan menaip namanya.'},
-          {en:'If Pro quality is unavailable, the app switches to Fast automatically instead of failing.', id:'Jika kualitas Pro tidak tersedia, app otomatis beralih ke Fast alih-alih gagal.', ms:'Jika kualiti Pro tidak tersedia, app beralih ke Fast secara automatik dan tidak gagal.'}
+          {en:'The Pro quality option is removed: Google does not allow it inside Canvas. Every voice now uses the reliable Fast model.', id:'Opsi kualitas Pro dihapus: Google tidak mengizinkannya di dalam Canvas. Semua suara kini memakai model Fast yang stabil.', ms:'Pilihan kualiti Pro dibuang: Google tidak membenarkannya dalam Canvas. Semua suara kini guna model Fast yang stabil.'}
         ]},
         {version:'1.1', date:'2026-11-13', changes:[
           {en:'Emotion tags per line: start a line with [sad], [tense], [whisper]... to change the emotion from there.', id:'Tag emosi per baris: awali baris dengan [sedih], [tegang], [berbisik]... untuk mengganti emosi mulai baris itu.', ms:'Tag emosi setiap baris: mulakan baris dengan [sedih], [tegang], [berbisik]... untuk menukar emosi mulai baris itu.'},
