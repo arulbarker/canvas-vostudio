@@ -976,7 +976,7 @@
           const url=ov.querySelector('#relay-url'), tok=ov.querySelector('#relay-token'), sub=ov.querySelector('#relay-sub'), msg=ov.querySelector('.r-msg');
           url.value=c.url||''; tok.value=c.token||''; sub.value=c.sub||'';
           let pairId=0;
-          const close=()=>{ pairId++; ov.remove(); sync(); };
+          const close=()=>{ pairId++; ov.remove(); sync(); document.dispatchEvent(new Event('vo-relay-changed')); };
           const baseUrl=()=>url.value.trim().replace(/\/+$/,'');
           async function simpan(){
             const cfg={ url:baseUrl(), token:tok.value.trim(), sub:sub.value.trim().replace(/[^A-Za-z0-9._-]+/g,'_').slice(0,60) };
@@ -1121,7 +1121,7 @@
         const subWrap=document.getElementById('q-sub-wrap'), subEl=document.getElementById('q-sub');
         function syncSub(){ const c=window.relayCfg(); subWrap.classList.toggle('hidden', !c); if(c && !subEl.value) subEl.value=store.get('vo_queue_sub') || c.sub || ''; }
         subEl.addEventListener('input',()=>store.set('vo_queue_sub', subEl.value));
-        document.addEventListener('click', ()=>setTimeout(syncSub, 0));
+        document.addEventListener('vo-relay-changed', syncSub);
         syncSub();
 
         function updateCount(){ const n=window.parseQueueLines(input.value).length; count.textContent=n ? n+' '+t('qu.lines') : ''; }
